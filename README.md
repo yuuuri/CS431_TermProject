@@ -1,9 +1,7 @@
-# CS431_TermProject - Victor, Annette, and Yuri
-CPSC 431 Term Project
+# CS431_TermProject
+CPSC 431 Term Project - Victor, Annette, Yuri
 
-Spring 2015
-
-Goal
+Spring 2015, Goal
 
 Build a web-based on-campus course management system for faculty/students/administrators. The following is a list of functionalities you 
 
