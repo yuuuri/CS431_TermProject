@@ -12,6 +12,7 @@ Functionalities for Faculty
 5. Enter students’ scores for each student. 
 
 Functionalities for Students
+
 1. List all the course sessions being offered. 
 2. Review the details of a course session. 
 3. Enroll to a particular session. 
@@ -19,7 +20,8 @@ Functionalities for Students
 5. Review the course material for a course session. 
 6. Review student’s grades. 
 
-Administrative Functionalities 
+Administrative Functionalities
+
 1. Review the course schedule. 
 2. Make changes to the course schedule: add a course to the course schedule, delete a course from the course schedule.
 3. Review/modify the details of a given course.  
