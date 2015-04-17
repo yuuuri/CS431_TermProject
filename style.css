@@ -1,0 +1,18 @@
+body {padding: 80px 10px 0px 10px;font-family: 'Open Sans', sans-serif;}
+
+.navbar {border-radius: 10px; padding: 0px 10px 10px 0px;}
+
+.member {position: absolute; bottom: 0; right: 10;}
+
+.form_left{padding-left: 150px;}
+
+.program_title{margin-left: 20px}
+
+.jumbotron {border-radius: 10px;}
+
+.form-group .navbar-text{}
+
+.container{margin-left: 180px;}
+
+
+/*.form-inline{padding-left: 100px}*/
