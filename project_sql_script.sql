@@ -37,7 +37,7 @@ create table SECTIONS
 	Syllabus mediumblob
 );
 
-alter table COURSE_SECTION
+alter table SECTIONS
 add foreign key (P_ID) references PROFESSOR (P_ID)
 add foreign key (Course_ID) references COURSE (Course_ID);
 
