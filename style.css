@@ -14,7 +14,9 @@ body {padding: 80px 10px 0px 10px;font-family: 'Open Sans', sans-serif;}
 
 .container{margin-left: 180px;}
 
-.student_greeting{font: 'Open Sans', sans-serif;}
+.student_greeting{margin-left: 50px; font: 'Open Sans', sans-serif;}
+
+.student_pg_buttons{margin-left: 50px;}
 
 
 /*.form-inline{padding-left: 100px}*/

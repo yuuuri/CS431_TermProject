@@ -46,6 +46,7 @@
             $student_id = $row['S_ID'];
             $student_fname = $row['Fname'];
             $student_lname = $row['Lname'];
+            $link->close();
         }
     }
 ?>
@@ -54,6 +55,7 @@
 <head>
     <title>Student Page</title>
     <meta name = "author" content="Yuri Van Steenburg" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <link rel= "stylesheet" type="text/css" href="style.css" />
 </head>
@@ -71,6 +73,25 @@
 
         ?>
     </div>
+    <br>
+    <br>
+    <br>
+    <div class = "student_pg_buttons">
+        <form action = "view_all_sessions.php" method = "post">
+            <input class = "btn btn-primary btn-lg" type = "submit" value = "View All Sessions"/>
+        </form>
+    
+
+        <br>
+        <br>
+        <br>
+
+
+        <form action = "view_my_classes.php" method = "post">
+            <input class="btn btn-primary btn-lg" type = "submit" value = "View My Classes" />
+        </form>
+    </div>
+
 </main>
 
 </body>
