@@ -90,7 +90,7 @@
     <br><br>
     <div class = "bottom_buttons" >
         <form action = "view_my_grades.php" method = "post">
-            <input class = "btn btn-primary" type = "submit" value = "View All Sessions"/>
+            <input class = "btn btn-primary" type = "submit" value = "View My Grades"/>
         </form>
     </div><br><br>
 </main>
@@ -98,7 +98,7 @@
         <br>
         <br>
         <div class = "bottom_buttons" >
-            <form action = 'student.php' method = 'LINK'>
+            <form action = 'student.php' method = 'POST'>
                 <input type = 'submit' class = "btn btn-default" value = 'Back'>
             </form>
         </div>
