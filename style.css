@@ -18,8 +18,12 @@ body {padding: 80px 10px 0px 10px;font-family: 'Open Sans', sans-serif;}
 
 .student_pg_buttons{margin-left: 50px;}
 
+.view_all_sessions_header, .all_sessions_tbl_div, .bottom_buttons{margin-left: 50px;}
+
 .view_my_classes_header, .my_classes_tbl_div, .bottom_buttons{margin-left: 50px;}
 
 .view_my_grades_header, .my_grades_tbl_div, .bottom_buttons{margin-left: 50px;}
+
+.all_sessions_tbl_div, .my_classes_tbl_div, .my_grades_tbl_div {margin-right: 50px;}
 
 /*.form-inline{padding-left: 100px}*/
