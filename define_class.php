@@ -1,18 +1,25 @@
 <?php
-	function checkCWID ($CWID, $accounttype)
+
+	function usertype($accounttype)
 	{
-		if ($accounttype = "ADMIN_STAFF")
+		if ($accounttype == 'ADMIN_STAFF')
 		{
 			$queryID = 'A_ID';
 		}
-		elseif ($acccounttype = "STUDENT")
+		elseif ($accounttype == 'STUDENT')
 		{
 			$queryID = 'S_ID';
 		}
-		elseif ($accounttype = "PROFESSOR")
+		elseif ($accounttype == "PROFESSOR")
 		{
 			$queryID = 'P_ID';
 		}
+		return $queryID;
+	}
+
+	function checkCWID($CWID, $accounttype)
+	{
+		$queryID = usertype($accounttype);
 		
 		
 		@ $db = mysqli_connect('localhost', 'root', '', 'TermProject');
@@ -35,21 +42,35 @@
 		}
 	}
 	
-	function getfullname($CWID,$accounttype)
+	function getFname($CWID,$accounttype)
 	{
-		if ($accounttype = "ADMIN_STAFF")
-		{
-			$queryID = 'A_ID';
-		}
-		elseif ($acccounttype = "STUDENT")
-		{
-			$queryID = 'S_ID';
-		}
-		elseif ($accounttype = "PROFESSOR")
-		{
-			$queryID = 'P_ID';
-		}
+		$queryID = usertype($accounttype);
+
 		
+		@ $db = mysqli_connect('localhost', 'root', '', 'TermProject');
+		if (mysqli_connect_errno())
+		{	
+			echo "Error connecting to database.  Please try again";
+			exit;
+		}
+		$query = 'SELECT * FROM '.$accounttype.' WHERE '.$queryID.' = '.$CWID;
+		$result = mysqli_query($db, $query);
+		if (!$result)
+		{
+			echo "No results from querying the database! - getFnamefunction";
+			exit;
+		}
+		$data = mysqli_fetch_assoc($result);
+		$Fname = $data['Fname'];
+
+		return $Fname;
+	}
+
+	
+	function getLname($CWID,$accounttype)
+	{
+
+		$queryID = usertype($accounttype);
 		
 		@ $db = mysqli_connect('localhost', 'root', '', 'TermProject');
 		if (mysqli_connect_errno())
@@ -64,12 +85,10 @@
 			echo "SOMETHING WENT WRONG BOI";
 		}
 		$data = mysqli_fetch_assoc($result);
-		$Fname = $data['Fname'];
 		$Lname = $data['Lname'];
-		
-		$name = $Fname.' '.$Lname;
-		return $name;
-	}
+		return $Lname;
+	}	
+	
 	class student
 	{
 		public function enroll($section_id,$CWID)
