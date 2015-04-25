@@ -1,7 +1,9 @@
 <?php 
  session_start();
-    //declare CWID variable
+    //declare student_ID variable
     $student_id = $_POST['s_id'];
+
+
     //======== BIGIN INPUT PARSING ===========
     //check for user input errors such as missing CWID or less than 9 digits
     //if error is found, kick the user back to index, following an error msg
@@ -42,6 +44,12 @@
             $_SESSION['message1'] = "The student does not exist. Please enter valid student ID.";
             header("Location: index.php");
         }else{
+
+            //create a session variable
+            $_SESSION['sess_var'] = $student_id;
+
+            //echo 'The content of $_SESSION[\'session_var\'] is'.$_SESSION['sess_var'].'<br />';
+
             $row = $result->fetch_assoc();
             $student_id = $row['S_ID'];
             $student_fname = $row['Fname'];
@@ -62,16 +70,15 @@
 <body>
 <header>
     <div class = "student_greeting">
-    <h2> Student Page </h2>
+        <h2> Student Page </h2>
     </div>
 </header>
 <main>
     <div class = "student_greeting">
         <?php
-
-        echo '<h3 >Hello! '.$student_fname.' '.$student_lname.' Student ID: '.$student_id.'<h3>';
-
+            echo '<h3 >Hello! '.$student_fname.'  '.$student_lname.',     Student ID: '.$student_id.'</h3>';
         ?>
+
     </div>
     <br>
     <br>
@@ -88,7 +95,7 @@
 
 
         <form action = "view_my_classes.php" method = "post">
-            <input class="btn btn-primary btn-lg" type = "submit" value = "View My Classes" />
+            <input class="btn btn-primary btn-lg" type = "submit" name = 's_id' value = "View My Classes" />
         </form>
     </div>
 
