@@ -91,16 +91,33 @@
 
                 ?>
             </tbody>
-        </table>
+        </table><br><br>
     </div>
-
+    <div class = "bottom_buttons" >
+                    <form class="form-inline" form action="view_course_details.php" method="POST">
+                        <div class="form-group">
+                            <label for="exampleInputName2">View Details of a Course: </label>
+                            <input type="text" class="form-control" id="exampleInputName2" placeholder="" name="course_des" maxlength = "9">
+                            <button type="submit" class="btn btn-info">Submit</button>
+                        </div>
+                    </form>
+                        <?php
+                            if(isset($_SESSION['message_c']))
+                            {
+                                echo '<font color = "red"><i>'.$_SESSION['message_c'].'</i></font>';
+                            }
+                            unset($_SESSION['message_c']); // clear the value so that it doesn't display again
+                        ?>
+    </div>
 </main>
 <footer>
             <br>
             <br>
+    <div class = "bottom_buttons" >
             <form action = 'student.php' method = 'LINK'>
                 <input type = 'submit' class = "btn btn-default" value = 'Back'>
             </form>
+    </div>        
 </footer>
 </body>
 </html>
