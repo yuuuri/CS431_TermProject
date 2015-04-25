@@ -1,3 +1,7 @@
+<?php
+    session_start();
+    $student_id = $_SESSION['sess_var'];
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +32,12 @@
             </thead>
             <tbody> <!-- Reference: https://github.com/chrisdanan/431Hw4/blob/master/index.php -->
                 <?php
+
+                 session_start();
+                    //declare CWID variable
+                    $student_id = $_POST['s_id'];
+
+
                     class view_all_sections {
                         function connect() {
                             //local variable to connect to database
