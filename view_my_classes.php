@@ -87,14 +87,21 @@
             </tbody>
         </table>
     </div>
-
+    <br><br>
+    <div class = "bottom_buttons" >
+        <form action = "view_my_grades.php" method = "post">
+            <input class = "btn btn-primary" type = "submit" value = "View All Sessions"/>
+        </form>
+    </div><br><br>
 </main>
 <footer>
-            <br>
-            <br>
+        <br>
+        <br>
+        <div class = "bottom_buttons" >
             <form action = 'student.php' method = 'LINK'>
                 <input type = 'submit' class = "btn btn-default" value = 'Back'>
             </form>
+        </div>
 </footer>
 </body>
 </html>
