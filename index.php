@@ -46,7 +46,7 @@
 			<br>
 
 	  		<h3>Faculty Login: </h3>
-				<form class="form-inline" form action="professor_page.php" method="POST">
+				<form class="form-inline" form action="facultyPage.php" method="POST">
 			  			<div class="form-group">
 						    <label for="exampleInputName2">Faculty ID: </label>
 						    <input type="text" class="form-control" id="exampleInputName2" placeholder="" name="p_id" maxlength = "9">
