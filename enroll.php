@@ -30,9 +30,10 @@
             echo "<p>Error: Could not connect to data base.  Try again<p>\n";
             exit;
         }
-        echo "Successfully connected to database TermProject\n";
+        //echo "Successfully connected to database TermProject\n";
         //database connected
 
+        //check the section exist in db
         $q_exists = 'select * from SECTIONS where Section_ID = '.$sec_id;
         $result_q_exists = $link->query($q_exists) or die("ERROR: " . mysqli_error($link));
         if($result_q_exists->num_rows === 0){
@@ -40,14 +41,21 @@
             header("Location: view_all_sessions.php");   
         }
         else {
-            echo 'existence check went through';
-            //checks if the section id entered was already enrolled, if not insert    
-            $query = 'SELECT s.Section_ID, s.Course_ID, s.Meeting_Date, s.Start_Time, s.End_Time, s.Syllabus FROM SECTIONS as s, ENROLL as e WHERE e.S_ID = '.$_SESSION['sess_var'].' and s.Section_ID != '.$sec_id.';';
+            //echo ' existence check went through ';
+            //checks if the section id entered was already enrolled, if not insert
+
+            //the below checks if user is already enrolled that section
+            /*********************************************************************/
+            $select = 'SELECT s.Section_ID, s.Course_ID, s.Meeting_Date, s.Start_Time, s.End_Time, s.Syllabus ';
+            $where = 'FROM SECTIONS as s, ENROLL as e '; 
+            $from = 'WHERE e.S_ID = '.$_SESSION['sess_var'].' and '.$sec_id.' = e.Section_ID and e.Section_ID = s.Section_ID;';
+
+            $query = $select.$where.$from;
             $result = $link->query($query) or die("ERROR: " . mysqli_error($link));
-            if($result->num_rows === 0){
-                $_SESSION['message_e'] = "The student. Please enter valid student ID.";
+            if($result->num_rows === 1){
+                $_SESSION['message_e'] = "Already enrolled. Please enter valid session ID.";
                 header("Location: view_all_sessions.php");
-            }else {
+            }else{
 
                     $query_enroll = 'INSERT INTO ENROLL VALUES ( '.$_SESSION['sess_var'].', '.$sec_id.');';
                     $result_enroll = $link->query($query_enroll) or die("ERROR: " . mysqli_error($link));
@@ -55,7 +63,8 @@
                             die('Invalid query: ' . mysql_error());
                     }
                     else{
-                        echo 'successfully inserted';
+                            $_SESSION['message_e'] = "Succsessfully enrolled!";
+                            header("Location: view_all_sessions.php"); 
                     }
             }
         }
