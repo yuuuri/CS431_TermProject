@@ -57,10 +57,7 @@
                             return $link;
                         }
                         function display_all_sections($link_db){
-                            $select = 'SELECT Sec.Section_ID, Sec.Course_ID, P.Fname, P.Lname, Sec.Meeting_Date, Sec.Start_Time, Sec.End_Time ';
-                            $from = 'FROM SECTIONS as SEC, PROFESSOR as P ';
-                            $where = 'WHERE SEC.P_ID = P.P_ID;';
-                            $query = $select.$from.$where;
+                            $query = 'SELECT s.Section_ID, s.Course_ID, p.Fname, p.Lname, s.Meeting_Date, s.Start_Time, s.End_Time From SECTIONS as s, PROFESSOR as p where s.P_ID = p.P_ID;';
                             $result = $link_db->query($query) or die("ERROR: " . mysqli_error($link_db));
                             if($result->num_rows === 0){
                                 echo "<p>No records found</p>";
@@ -84,10 +81,11 @@
                             }//end of else
                         }//end of function display_all_sections
                     }//end of class view_all_sections
-
+  
                     $v = new view_all_sections();
                     $link_db = $v->connect();
                     $v->display_all_sections($link_db);
+
 
                 ?>
             </tbody>
@@ -96,8 +94,8 @@
     <div class = "bottom_buttons" >
                     <form class="form-inline" form action="view_course_details.php" method="POST">
                         <div class="form-group">
-                            <label for="exampleInputName2">View Details of a Course: </label>
-                            <input type="text" class="form-control" id="exampleInputName2" placeholder="" name="course_des" maxlength = "9">
+                            <label for="exampleInputName2">Type Course-ID to View Details of a Course: </label>
+                            <input type="text" class="form-control" id="exampleInputName2" placeholder="" name="course_id" maxlength = "9">
                             <button type="submit" class="btn btn-info">Submit</button>
                         </div>
                     </form>
@@ -107,6 +105,21 @@
                                 echo '<font color = "red"><i>'.$_SESSION['message_c'].'</i></font>';
                             }
                             unset($_SESSION['message_c']); // clear the value so that it doesn't display again
+                        ?>
+                    <br><br>
+                    <form class="form-inline" form action="enroll.php" method="POST">
+                        <div class="form-group">
+                            <label for="exampleInputName2">Enter Session-ID to enroll: </label>
+                            <input type="text" class="form-control" id="exampleInputName2" placeholder="" name="session_id" maxlength = "5">
+                            <button type="submit" class="btn btn-warning">Enroll</button>
+                        </div>
+                    </form>
+                        <?php
+                            if(isset($_SESSION['message_e']))
+                            {
+                                echo '<font color = "red"><i>'.$_SESSION['message_e'].'</i></font>';
+                            }
+                            unset($_SESSION['message_e']); // clear the value so that it doesn't display again
                         ?>
     </div>
 </main>
