@@ -22,19 +22,19 @@
 
 <?php
     if(!$facultyId){
-        $_SESSION['message1'] = "Please enter your Faculty ID:";
+        $_SESSION['message2'] = "Please enter your Faculty ID:";
         header("Location: index.php");
     }
     elseif(strlen($facultyId) < 9){
-        $_SESSION['message1'] = "ID less than 9 digits. Try Again.";
+        $_SESSION['message2'] = "ID less than 9 digits. Try Again.";
         header("Location: index.php");
     }
     elseif(!is_numeric($facultyId)){
-        $_SESSION['message1'] = "Please enter numeric 9 digits.";
+        $_SESSION['message2'] = "Please enter numeric 9 digits.";
         header("Location: index.php");
     }
     elseif(!checkCWID($facultyId, $account)){
-        $_SESSION['message1']= "ID entered not valid.";
+        $_SESSION['message2']= "ID entered not valid.";
         header("Location: index.php");
     }
     else{
@@ -96,16 +96,16 @@
     <br>
     <br>
     <div class = "coursesList">
-        <form action = "" method = "post">
-            <input class = "btn btn-primary btn-lg" type = "submit" value = "View All Sessions"/>
+        <form action = "teaching_courses.php" method = "post">
+            <input class = "btn btn-primary btn-lg" type = "submit" value = "View Course List"/>
         </form>
     </div>
         <br>
         <br>
         <br>
     <div class = "courseDetails">
-        <form action = "" method = "post">
-            <input class="btn btn-primary btn-lg" type = "submit" name = 's_id' value = "View My Classes" />
+        <form action = "course_details.php" method = "post">
+            <input class="btn btn-primary btn-lg" type = "submit" name = 's_id' value = "Course Details" />
         </form>
     </div>
         <br>
@@ -113,7 +113,7 @@
         <br>
     <div class = "uploadMaterials">
         <form action = "" method = "post">
-            <input class="btn btn-primary btn-lg" type = "submit" name = 's_id' value = "View My Classes" />
+            <input class="btn btn-primary btn-lg" type = "submit" name = 's_id' value = "Upload Files" />
         </form>
     </div>
         <br>
@@ -121,7 +121,7 @@
         <br>
     <div class = "downloadFiles">
         <form action = "" method = "post">
-            <input class="btn btn-primary btn-lg" type = "submit" name = 's_id' value = "View My Classes" />
+            <input class="btn btn-primary btn-lg" type = "submit" name = 's_id' value = "Download Files" />
         </form>
     </div>
         <br>
@@ -129,7 +129,7 @@
         <br>
     <div class = "enterScores">
         <form action = "" method = "post">
-            <input class="btn btn-primary btn-lg" type = "submit" name = 's_id' value = "View My Classes" />
+            <input class="btn btn-primary btn-lg" type = "submit" name = 's_id' value = "Enter Scores" />
         </form>
     </div>
 
