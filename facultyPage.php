@@ -38,8 +38,8 @@
         header("Location: index.php");
     }
     else{
-    //$facultyFname = getFname($facultyId, $account);
-    //$facultyLname = getLname($facultyId, $account);
+    $facultyFname = getFname($facultyId, $account);
+    $facultyLname = getLname($facultyId, $account);
     
         //local variable to connect to database
         /*$user = 'root';
@@ -47,7 +47,7 @@
         $db = 'TermProject';
         $host = '127.0.0.1';
         $port = 8889;
-        $socket = 'localhost:/Applications/MAMP/tmp/mysql/mysql.sock';*/
+        $socket = 'localhost:/Applications/MAMP/tmp/mysql/mysql.sock';
 
         $mysql_hostname = '127.0.0.1';
         $mysql_username = 'root';
@@ -82,7 +82,7 @@
             $student_lname = $row['Lname'];
             $link->close();
         }
-    }
+    }*/
 ?>
 
 <main>
