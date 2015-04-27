@@ -82,7 +82,7 @@
             $student_lname = $row['Lname'];
             $link->close();
         }
-    }*/
+    */}
 ?>
 
 <main>
