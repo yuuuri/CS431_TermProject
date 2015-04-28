@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	include 'define_class1.php';
+	include 'define_class.php';
 	
 ?>
 <!DOCTYPE html>
@@ -38,38 +38,54 @@
             </tbody>
         </table>
     </div>
+	
+	<br><br>
+	
     <div class = "bottom_buttons" >
                     <form class="form-inline" form action="edit_course_schedule.php" method="POST">
                         <div class="form-group">
-                            <label for="exampleInputName2">Modify Details of a Course: </label>
+                            <label for="exampleInputName2">Modify Details of a Course </label>
                             <input type="text" class="form-control" id="exampleInputName2" placeholder=" Enter Course ID" name="edit_course" maxlength = "8">
                             <button type="submit" class="btn btn-info">Edit</button>
                         </div>
                     </form>
                         <?php
-                            if(isset($_SESSION['message']))
+                            if(isset($_SESSION['message_edit']))
                             {
-                                echo '<font color = "red"><i>'.$_SESSION['message'].'</i></font>';
+                                echo '<font color = "red"><i>'.$_SESSION['message_edit'].'</i></font>';
                             }
-                            unset($_SESSION['message']); // clear the value so that it doesn't display again
+                            unset($_SESSION['message_edit']); // clear the value so that it doesn't display again
                         ?>
     </div>
 	<br /> <br />
 	
-	<div class = "bottom_buttons" >
-                    <form class="form-inline" form action="modify_course_schedule.php" method="POST">
+    <div class = "bottom_buttons" >
+                    <form class="form-inline" form action="delete_course.php" method="POST">
                         <div class="form-group">
-
-                            <button type="submit" class="btn btn-info">Add/Delete a Course</button>
+                            <label for="exampleInputName2">Delete Course </label>
+                            <input type="text" class="form-control" id="exampleInputName2" placeholder=" Enter Course ID" name="del_course" maxlength = "8">
+                            <button type="submit" class="btn btn-info">Submit</button>
                         </div>
                     </form>
                         <?php
-                            if(isset($_SESSION['message_c']))
+                            if(isset($_SESSION['message_del']))
                             {
-                                echo '<font color = "red"><i>'.$_SESSION['message_c'].'</i></font>';
+                                echo '<font color = "red"><i>'.$_SESSION['message_del'].'</i></font>';
                             }
-                            unset($_SESSION['message_c']); // clear the value so that it doesn't display again
+                            unset($_SESSION['message_del']); // clear the value so that it doesn't display again
                         ?>
+    </div>
+	
+	<br> <br>
+	
+	<div class = "bottom_buttons" >
+                    <form class="form-inline" form action="add_course.php" method="POST">
+                        <div class="form-group">
+
+                            <button type="submit" class="btn btn-info">Add Course</button>
+                        </div>
+                    </form>
+
     </div>
 	
 </main>
