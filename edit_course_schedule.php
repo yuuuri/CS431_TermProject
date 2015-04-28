@@ -11,10 +11,10 @@
 	
 		
 	if (!$course_id){
-		$_SESSION['message'] = "Please enter Course ID";
+		$_SESSION['message_del'] = "Please enter Course ID";
 		header("Location: view_course_schedule.php");	
 	} elseif(!checkCourse($course_id)) {	
-		$_SESSION['message'] = "Course ID entered not valid!";
+		$_SESSION['message_del'] = "Course ID entered not valid!";
 		header("Location: view_course_schedule.php");
 	// } elseif(!strlen($admin_ID) == 7 ) {
 		// $_SESSION['message'] = "SSN must be 8 digits";
@@ -57,8 +57,6 @@
 	    <form class="form-inline" form action="confirm_course_change.php" method="POST">
 			<div class="form-group">
 			<tr>
-			<label for="exampleInputName2"><td>Course ID </td></label>
-			<input type="text" class="form-control" id="exampleInputName2" placeholder="" name="Course_ID" maxlength = "12"> <br />
 			</tr>
 			<label for="exampleInputName2">Course Title </label>
 			<input type="text" class="form-control" id="exampleInputName2" placeholder="" name="Course_Title" maxlength = "30"> <br />
