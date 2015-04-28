@@ -5,10 +5,10 @@
 ?>
 <?php
 
-	$course_id = $_POST["Course_ID"];
+	//$course_id = $_POST["Course_ID"];
 	$course_title = $_POST["Course_Title"];
 	$course_des = $_POST["Description"];
-	$original_course_id = $_SESSION["course_id"];
+	$course_id = $_SESSION["course_id"];
 	
 ?>
 <!DOCTYPE html>
@@ -40,14 +40,19 @@
 			   <?php
 
                     $db = connectDB();
-					display_course($db, $original_course_id);
-					modify_course($db, $original_course_id, $course_id, $course_title, $course_des);
+					display_course($db, $course_id);
+					mysqli_close($db);  //close database
                 ?>
             </tbody>
         </table>
     </div>
 	<br><br>
 
+	<?php
+		/********** Modify course details ***********/
+		$db = connectDB();
+		modify_course($db, $course_id, $course_title, $course_des);
+	?>
 	
 </main>
 <header>
@@ -69,10 +74,8 @@
 			   <?php
 
                     $db = connectDB();
-					
-					
 					display_course($db, $course_id);
-
+					mysqli_close($db);
                 ?>
             </tbody>
         </table>
