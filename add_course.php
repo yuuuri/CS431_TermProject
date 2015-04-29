@@ -39,8 +39,8 @@
 			
 			<label for="exampleInputName2">Course Description </label>
 			<input type="text" class="form-control" id="exampleInputName2" placeholder="" name="Description" maxlength = "500"> <br />
-			<input name = "SubmitButton" type = "submit" value = "Submit Changes "
-		</div>
+			<input name = "SubmitButton" type = "submit" value = "Submit Changes ">
+			</div>
 		
 		<?php
             if (isset($_SESSION['message_add'])) {
@@ -48,6 +48,7 @@
             }
             unset($_SESSION['message_add']); // clear the value so that it doesn't display again
         ?>
+        </form>
     </div>
 		
 		
