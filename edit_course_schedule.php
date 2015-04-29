@@ -63,10 +63,11 @@
 			
 			<label for="exampleInputName2">Course Description </label>
 			<input type="text" class="form-control" id="exampleInputName2" placeholder="" name="Description" maxlength = "500"> <br />
-		<input name = "SubmitButton" type = "submit" value = "Submit Changes "
+			<input name = "SubmitButton" type = "submit" value = "Submit Changes ">
 		
 		
-		</div>
+			</div>
+		</form>
 		
 		
 		
@@ -79,7 +80,7 @@
             <br>
             <br>
 			<br>
-			<form action = "admin.php" method = "post">
+			<form action = "view_course_schedule.php" method = "post">
 				<input name = "BackButton" type="submit" value ="Back">
 			</form>
 
