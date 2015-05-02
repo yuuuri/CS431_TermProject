@@ -75,7 +75,6 @@ insert into ADMIN_STAFF values
 insert into PROFESSOR values
 (	200000011, 'Bruce', 'Wayne'),
 (	200000012, 'Clark', 'Kent');
-(	200000013, 'Houston', 'Street');
 (	200000014, 'Kenny', 'Avory');
 (	200000015, 'Donna', 'Kostner');
 
