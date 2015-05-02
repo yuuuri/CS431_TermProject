@@ -74,8 +74,9 @@ insert into ADMIN_STAFF values
 
 insert into PROFESSOR values
 (	200000011, 'Bruce', 'Wayne'),
-(	200000012, 'Clark', 'Kent');
-(	200000014, 'Kenny', 'Avory');
+(	200000012, 'Clark', 'Kent'),
+(	200000013, 'Houston', 'Street'),
+(	200000014, 'Kenny', 'Avory'),
 (	200000015, 'Donna', 'Kostner');
 
 insert into STUDENT values
@@ -86,9 +87,9 @@ insert into STUDENT values
 insert into COURSE values
 (	'CPSC-431', 'Database & Applications', 3,'Class specifies PHP and MySQL.  Pre-reqs include CPSC 131'),
 (	'CPSC-471', 'Computer Communications', 3, 'Learn about wireshark and how packets move through a network!'),
-(	'CPSC-440', 'Computer System Architecture', 3, 'If you loved programming in assembly language, you will really love this class');
-(	'CPSC-462', 'Software Designs', 3, 'Concepts of software modeling, software process and some tools. Object-oriented analysis.');
-(	'CPSC-473', 'Web Programming and Data Management', 3, 'Various techniques for developing Web-based database applications using software engineering');
+(	'CPSC-440', 'Computer System Architecture', 3, 'If you loved programming in assembly language, you will really love this class'),
+(	'CPSC-462', 'Software Designs', 3, 'Concepts of software modeling, software process and some tools. Object-oriented analysis.'),
+(	'CPSC-473', 'Web Programming and Data Management', 3, 'Various techniques for developing Web-based database applications using software engineering'),
 (	'CPSC-481', 'Artificial Intelligence', 3, 'Use of computers to simulate human intelligence. ');
 
 insert into SECTIONS values
@@ -96,9 +97,9 @@ insert into SECTIONS values
 (	00002, 'CPSC-431', 200000011, 'Tu/Th', '2:00 PM', '3:30 PM', ''),
 (	00003, 'CPSC-471', 200000012, 'M/W', '12:00 PM', '1:30 PM', ''),
 (	00004, 'CPSC-471', 200000012, 'M/W', '4:00 PM', '5:30 PM', ''),
-(	00005, 'CPSC-440', 200000012, 'Tu/Th', '12:00 PM', '1:30 PM', '');
-(	00006, 'CPSC-462', 200000013, 'M/W', '2:00 PM', '3:15 PM', '');
-(	00007, 'CPSC-473', 200000014, 'W', '7:00 PM', '9:45 PM', '');
+(	00005, 'CPSC-440', 200000012, 'Tu/Th', '12:00 PM', '1:30 PM', ''),
+(	00006, 'CPSC-462', 200000013, 'M/W', '2:00 PM', '3:15 PM', ''),
+(	00007, 'CPSC-473', 200000014, 'W', '7:00 PM', '9:45 PM', ''),
 (	00008, 'CPSC-481', 200000015, 'M/W', '4:00 PM', '5:15 PM', '');
 
 insert into ENROLL values
@@ -111,5 +112,3 @@ insert into ENROLL values
 insert into CLASS_GRADES (Section_ID, S_ID, HW_Grade, Term_Grade) values
 (	00001, 300000001, 100, 88),
 (	00001, 300000002, 92, 80);
-
-
