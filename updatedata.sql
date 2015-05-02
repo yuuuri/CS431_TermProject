@@ -24,6 +24,7 @@ create table STUDENT
 create table COURSE
 (	Course_ID char (10) not null primary key,
 	Course_Title char (30),
+        Course_Unit int unsigned not null,
 	Description varchar (500)
 );
 
@@ -81,9 +82,9 @@ insert into STUDENT values
 (	300000003, 'Bobby', 'Schmurda');
 
 insert into COURSE values
-(	'CPSC-431', 'Database & Applications', 'Class specifies PHP and MySQL.  Pre-reqs include CPSC 131'),
-(	'CPSC-471', 'Computer Communications', 'Learn about wireshark and how packets move through a network!'),
-(	'CPSC-440', 'Computer System Architecture', 'If you loved programming in assembly language, you will really love this class');
+(	'CPSC-431', 'Database & Applications', 3,'Class specifies PHP and MySQL.  Pre-reqs include CPSC 131'),
+(	'CPSC-471', 'Computer Communications', 3, 'Learn about wireshark and how packets move through a network!'),
+(	'CPSC-440', 'Computer System Architecture', 3, 'If you loved programming in assembly language, you will really love this class');
 
 insert into SECTIONS values
 (	00001, 'CPSC-431', 200000011, 'Tu/Th', '10:00 AM', '11:30 AM', ''),
