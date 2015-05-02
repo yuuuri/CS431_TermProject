@@ -24,7 +24,7 @@ create table STUDENT
 create table COURSE
 (	Course_ID char (10) not null primary key,
 	Course_Title char (30),
-        Course_Unit tinyint unsigned not null,
+        Course_Unit int unsigned not null,
 	Description varchar (500)
 );
 
