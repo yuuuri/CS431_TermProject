@@ -28,6 +28,7 @@
                     <th>Meeting Date</th>
                     <th>Starting Time</th>
                     <th>End Time</th>
+                    <th>Unit(s)</th>
                 </tr>
             </thead>
             <tbody> <!-- Reference: https://github.com/chrisdanan/431Hw4/blob/master/index.php -->
@@ -57,7 +58,13 @@
                             return $link;
                         }
                         function display_all_sections($link_db){
-                            $query = 'SELECT s.Section_ID, s.Course_ID, p.Fname, p.Lname, s.Meeting_Date, s.Start_Time, s.End_Time From SECTIONS as s, PROFESSOR as p where s.P_ID = p.P_ID;';
+
+                            $select = 'SELECT s.Section_ID, s.Course_ID, p.Fname, p.Lname, s.Meeting_Date, s.Start_Time, s.End_Time, c.Course_Unit ';
+                            $from = 'FROM SECTIONS as s, PROFESSOR as p, COURSE as c ';
+                            $where = 'WHERE s.P_ID = p.P_ID and s.Course_ID = c.Course_ID;';
+
+                            $query = $select.$from.$where;
+
                             $result = $link_db->query($query) or die("ERROR: " . mysqli_error($link_db));
                             if($result->num_rows === 0){
                                 echo "<p>No records found</p>";
@@ -72,6 +79,7 @@
                                         echo "<td>" . $row['Meeting_Date'] . "</td>";
                                         echo "<td>" . $row['Start_Time']."</td>";
                                         echo "<td>" . $row['End_Time']."</td>";
+                                        echo "<td>" . $row['Course_Unit']."</td>";
                                         echo "</tr>";
                                     }//end of while
 
