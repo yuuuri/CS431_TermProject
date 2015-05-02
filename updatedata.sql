@@ -89,8 +89,12 @@ insert into COURSE values
 (	'CPSC-471', 'Computer Communications', 3, 'Learn about wireshark and how packets move through a network!'),
 (	'CPSC-440', 'Computer System Architecture', 3, 'If you loved programming in assembly language, you will really love this class'),
 (	'CPSC-462', 'Software Designs', 3, 'Concepts of software modeling, software process and some tools. Object-oriented analysis.'),
-(	'CPSC-473', 'Web Programming and Data Management', 3, 'Various techniques for developing Web-based database applications using software engineering'),
-(	'CPSC-481', 'Artificial Intelligence', 3, 'Use of computers to simulate human intelligence. ');
+(	'CPSC-473', 'Web Programming and Data Management', 3, 'Various techniques for developing Web-based database applications using software engineering
+methodology. Introduce concept and architecture of Web servers, Web database design
+techniques, client/server side programming, and Web application tools and techniques. '),
+(	'CPSC-481', 'Artificial Intelligence', 3, 'Use of computers to simulate human intelligence. Topics include production systems, pattern
+recognition, problem solving, searching game trees, knowledge representation, and logical
+reasoning. Programming in AI environments.');
 
 insert into SECTIONS values
 (	00001, 'CPSC-431', 200000011, 'Tu/Th', '10:00 AM', '11:30 AM', ''),
