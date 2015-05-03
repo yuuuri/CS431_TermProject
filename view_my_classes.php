@@ -81,11 +81,15 @@
 
                             }//end of else
                         }//end of function display_all_sections
+
+
+
                     }//end of class view_all_sections
 
                     $v = new view_my_classes();
                     $link_db = $v->connect();
                     $v->display_my_classes($link_db);
+                    
 
                 ?>
             </tbody>
@@ -108,6 +112,13 @@
                     <input class ="btn btn-success" type = "submit" value = "Submit" />
                 </div>
             </form>
+            <?php
+                if(isset($_SESSION['message_hw']))
+                {
+                    echo '<font color = "red"><i>'.$_SESSION['message_hw'].'</i></font>';
+                }
+                unset($_SESSION['message_hw']); // clear the value so that it doesn't display again
+            ?>
 
     </div><br><br>
 </main>
