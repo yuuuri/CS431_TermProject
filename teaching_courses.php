@@ -3,6 +3,14 @@
 	include 'define_class.php';
 	
 ?>
+<?php
+
+    $course_id = $_POST["Course_ID"];
+    $course_title = $_POST["Course_Title"];
+    $course_des = $_POST["Description"];
+    $original_course_id = $_SESSION["course_id"];
+    
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +22,7 @@
 <body>
     <header>
         <div class = "view_your_courses">
-        <h2> Your Course Schedule </h2>
+        <h2> Your Courses </h2>
         </div>
     </header>
 <main>
