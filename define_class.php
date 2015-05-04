@@ -54,7 +54,8 @@
 		$query = "SELECT * FROM COURSE WHERE Course_ID = '$course_id'";
 		
 		$result = mysqli_query($db, $query);
-		if ($result){
+		$num = mysqli_num_rows($result);
+		if ($num == 1){
 			mysqli_close($db);
 			return true;
 		} else {
@@ -185,25 +186,27 @@
 	}
 	
 	
-	function modify_course ($db, $original_course_id, $course_id, $course_title, $course_des) 
+	function modify_course ($db, $original_course_id, $course_title, $course_des) 
 	{
 	
-		$query1 = "UPDATE COURSE SET Course_ID = '$course_id'where Course_ID = '$original_course_id'";
-		$query2 = "UPDATE COURSE SET Course_Title = '$course_title'where Course_ID = '$original_course_id'";
-		$query3 = "UPDATE COURSE SET Description = '$course_des'where Course_ID= '$original_course_id'";
+		//$query1 = "UPDATE COURSE SET Course_ID = '$course_id' WHERE Course_ID = '$original_course_id'";
+		$query2 = "UPDATE COURSE SET Course_Title = '$course_title' WHERE Course_ID = '$original_course_id'";
+		$query3 = "UPDATE COURSE SET Description = '$course_des' WHERE Course_ID= '$original_course_id'";
 		
-		if ($result = mysqli_query($db, $query1)) {
+		//if (mysqli_query($db, $query1)) {
+		//} else {
+		//	echo "Error updating database - problem setting Course ID";
+		//}
+		if (mysqli_query($db, $query2)) {
 		} else {
-			echo "Error updating database";
-		}
-		if ($result = mysqli_query($db, $query2)) {
-		} else {
-			echo "Error updating database";
+			echo "Error updating database - problem setting Course Title";
+			exit;
 		}
 		
-		if ($result = mysqli_query($db, $query3)) {
+		if (mysqli_query($db, $query3)) {
 		} else {
-			echo "Error updating database";
+			echo "Error updating database - problem setting Course Description";
+			exit;
 		}
 
 		//mysqli_free_result($result);
@@ -218,9 +221,9 @@
 	
 		$query = "INSERT INTO COURSE VALUES ('$course_id','$course_title', '$course_des')";
 		
-		if (!$result = mysqli_query($db, $query)) {
+		if (mysqli_query($db, $query)) {
 		} else {
-			echo "Error updating database11";
+			echo "Error updating database - problem with adding course";
 		}
 
 		
@@ -233,9 +236,9 @@
 	{
 		$query = "DELETE FROM COURSE WHERE Course_ID = '$course_id'";
 		
-		if (!$result = mysqli_query($db, $query)) {
+		if (mysqli_query($db, $query)) {
 		} else {
-			echo "Error updating database";
+			echo "Error updating database - problem deleting course";
 		}
 		
 		mysqli_close($db);

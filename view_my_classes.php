@@ -26,6 +26,7 @@
                     <th>Meeting Date</th>
                     <th>Starting Time</th>
                     <th>End Time</th>
+                    <th>Unit(s)</th>
                     <th>Syllabus</th>
                 </tr>
             </thead>
@@ -54,8 +55,10 @@
                         }
                         function display_my_classes($link_db){
 
-
-                            $query = 'SELECT Sec.Section_ID, Sec.Course_ID, Sec.Meeting_Date, Sec.Start_Time, Sec.End_Time, Sec.Syllabus FROM SECTIONS as SEC, ENROLL as EN WHERE EN.S_ID = '.$_SESSION['sess_var'].' and EN.Section_ID = SEC.Section_ID;';
+                            $select = 'SELECT s.Section_ID, s.Course_ID, s.Meeting_Date, s.Start_Time, s.End_Time, c.Course_Unit, s.Syllabus ';
+                            $from = 'FROM COURSE as c, SECTIONS as s, ENROLL as en ';
+                            $where = 'WHERE en.S_ID = '.$_SESSION['sess_var'].' and en.Section_ID = s.Section_ID and s.Course_ID = c.Course_ID';
+                            $query = $select.$from.$where;
                             $result = $link_db->query($query) or die("ERROR: " . mysqli_error($link_db));
                             if($result->num_rows === 0){
                                 echo "<p>No records found</p>";
@@ -68,6 +71,7 @@
                                         echo "<td>" . $row['Meeting_Date'] . "</td>";
                                         echo "<td>" . $row['Start_Time']."</td>";
                                         echo "<td>" . $row['End_Time']."</td>";
+                                        echo "<td>" . $row['Course_Unit']."</td>";
                                         echo "<td>" . $row['Syllabus']."</td>";
                                         echo "</tr>";
                                     }//end of while
@@ -77,11 +81,15 @@
 
                             }//end of else
                         }//end of function display_all_sections
+
+
+
                     }//end of class view_all_sections
 
                     $v = new view_my_classes();
                     $link_db = $v->connect();
                     $v->display_my_classes($link_db);
+                    
 
                 ?>
             </tbody>
@@ -92,6 +100,26 @@
         <form action = "view_my_grades.php" method = "post">
             <input class = "btn btn-primary" type = "submit" value = "View My Grades"/>
         </form>
+
+        <br><br>
+
+        <h2>Submit homework</h2>
+            <form action = "upload_hw.php" method = "post" enctype="multipart/form-data" />
+                <div>
+                    <input type = "hidden" name = "MAX_FILE_SIZE" value = "1000000" />
+                    <label for ="userfile"><h4>Upload a file: </h4></label>
+                    <input type = "file" name = "userfile" id = "userfile" /><br>
+                    <input class ="btn btn-success" type = "submit" value = "Submit" />
+                </div>
+            </form>
+            <?php
+                if(isset($_SESSION['message_hw']))
+                {
+                    echo '<font color = "red"><i>'.$_SESSION['message_hw'].'</i></font>';
+                }
+                unset($_SESSION['message_hw']); // clear the value so that it doesn't display again
+            ?>
+
     </div><br><br>
 </main>
 <footer>

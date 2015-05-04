@@ -5,16 +5,25 @@
 ?>
 <?php
 
-	//$course_id = $_POST["Course_ID"];
-	$course_title = $_POST["Course_Title"];
-	$course_des = $_POST["Description"];
-	$course_id = $_SESSION["course_id"];
+	$course_id = $_POST["del_course"];
+
+	$validcourse = checkCourse($course_id);
+	
+	if (!$course_id){
+		$_SESSION['message_del'] = "Please enter Course ID";
+		header("Location: view_course_schedule.php");
+		exit;	
+	} elseif (!$validcourse) {	
+		$_SESSION['message_del'] = "Please enter a valid Course ID";
+		header("Location: view_course_schedule.php");
+		exit;
+	} 
 	
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>View All Sessions</title>
+    <title>Confirm Course Deletion</title>
     <meta name = "author" content="Yuri Van Steenburg" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
@@ -23,7 +32,7 @@
 <body>
     <header>
         <div class = "view_all_sessions_header">
-        <h2> Previous Course Information </h2>
+        <h2> Course Deleted </h2>
         </div>
     </header>
 <main>
@@ -40,49 +49,31 @@
 			   <?php
 
                     $db = connectDB();
-					display_course($db, $course_id);
-					mysqli_close($db);  //close database
+                    display_course($db, $course_id);
+                    
+                    
+					if (delete_course($db, $course_id)) {
+						$confirmdelete = "Course successfully deleted from database";
+					} else {
+						echo "Error deleting course detail!  Please try again <br />";
+					}
+					//display_course($db, $original_course_id);
+					//modify_course($db, $original_course_id, $course_id, $course_title, $course_des);
                 ?>
             </tbody>
         </table>
     </div>
 	<br><br>
 
-	<?php
-		/********** Modify course details ***********/
-		$db = connectDB();
-		modify_course($db, $course_id, $course_title, $course_des);
-	?>
 	
 </main>
-<header>
-        <div class = "view_all_sessions_header">
-        <h2> Updated Course Information </h2>
-        </div>
-    </header>
-<main>
-    <div class = "Course_Schedule_tbl_div">
-        <table class = "table table-striped">
-            <thead>
-                <tr><th>Course ID</th>
-                    <th>Course Title    </th>
-					<th>Course Description</th>
-                </tr>
-            </thead>
-            <tbody> <!-- Reference: https://github.com/chrisdanan/431Hw4/blob/master/index.php -->
-               
-			   <?php
-
-                    $db = connectDB();
-					display_course($db, $course_id);
-					mysqli_close($db);
-                ?>
-            </tbody>
-        </table>
-    </div>
-
+<?php
+	if ($confirmdelete) {
+		echo $confirmdelete;
+	}
 	
-</main>
+?>
+
 <footer>
             <br>
             <br>
