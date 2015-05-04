@@ -14,6 +14,7 @@ $records = mysqli_query($con, $sql);
 	include 'define_class.php';*/
 	
 ?>
+<<<<<<< HEAD
 
 <?php
 
@@ -25,6 +26,16 @@ $records = mysqli_query($con, $sql);
 ?>
 
  -->
+=======
+<?php
+
+    $course_id = $_POST["Course_ID"];
+    $course_title = $_POST["Course_Title"];
+    $course_des = $_POST["Description"];
+    $original_course_id = $_SESSION["course_id"];
+    
+?>
+>>>>>>> 49805ced9ae1ccd17489951caa1e3d54ac29e330
 <!DOCTYPE html>
 <html>
 <head>

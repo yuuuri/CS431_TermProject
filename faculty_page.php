@@ -1,24 +1,10 @@
 <?php
-     session_start();
-     $facultyId = $_POST['p_id'];
-     include 'define_class.php';
-     $_SESSION['id'] = $_POST['p_id'];
-     $account = 'PROFESSOR';
+    session_start();
+    $facultyId = $_POST['p_id'];
+    include 'define_class.php';
+    $_SESSION['id'] = $_POST['p_id'];
+    $account = 'PROFESSOR';
 ?>
-
-
-<!-- 
-<?php
-/*//making db connection
-mysqli_connect('localhost', 'root', '', 'TermProject')
-//Time for that query
-$sql = "SELECT * FROM SECTIONS WHERE P_ID = p_id";
-
-$records = mysqli_query($sql);
-*/
-?>
- -->
-
 <!DOCTYPE html>
 <html>
 <head>

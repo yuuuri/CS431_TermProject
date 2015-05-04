@@ -5,26 +5,6 @@
 
 
 
-<?php
-	$_SESSION["course_id"] = $_POST["edit_course"];
-	$course_id = $_POST["edit_course"];
-	
-		
-	if (!$course_id){
-		$_SESSION['message_del'] = "Please enter Course ID";
-		header("Location: view_course_schedule.php");	
-	} elseif(!checkCourse($course_id)) {	
-		$_SESSION['message_del'] = "Course ID entered not valid!";
-		header("Location: view_course_schedule.php");
-	// } elseif(!strlen($admin_ID) == 7 ) {
-		// $_SESSION['message'] = "SSN must be 8 digits";
-		// header("Location: view_course_schedule.php");
-	} 
-	
-?>
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,13 +19,7 @@
         <div class = "view_all_sessions_header">
         <h2> 
 		<?php
-		
-			echo "Edit Course: $course_id";
-			
-			
-			
-		
-		
+			echo "Add Course ";
 		?>
 
 
@@ -54,9 +28,11 @@
     </header>
 <main>
 	<div class = "add_class" >
-	    <form class="form-inline" form action="confirm_course_change.php" method="POST">
+	    <form class="form-inline" form action="confirm_add_course.php" method="POST">
 			<div class="form-group">
 			<tr>
+			<label for="exampleInputName2"><td>Course ID </td></label>
+			<input type="text" class="form-control" id="exampleInputName2" placeholder="" name="Course_ID" maxlength = "8"> <br />
 			</tr>
 			<label for="exampleInputName2">Course Title </label>
 			<input type="text" class="form-control" id="exampleInputName2" placeholder="" name="Course_Title" maxlength = "30"> <br />
@@ -64,10 +40,16 @@
 			<label for="exampleInputName2">Course Description </label>
 			<input type="text" class="form-control" id="exampleInputName2" placeholder="" name="Description" maxlength = "500"> <br />
 			<input name = "SubmitButton" type = "submit" value = "Submit Changes ">
-		
-		
 			</div>
-		</form>
+		
+		<?php
+            if (isset($_SESSION['message_add'])) {
+                echo '<font color = "red"><i>'.$_SESSION['message_add'].'</i></font>';
+            }
+            unset($_SESSION['message_add']); // clear the value so that it doesn't display again
+        ?>
+        </form>
+    </div>
 		
 		
 		

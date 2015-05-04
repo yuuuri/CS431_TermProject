@@ -5,16 +5,42 @@
 ?>
 <?php
 
-	//$course_id = $_POST["Course_ID"];
+	$course_id = $_POST["Course_ID"];
 	$course_title = $_POST["Course_Title"];
 	$course_des = $_POST["Description"];
-	$course_id = $_SESSION["course_id"];
+
+	$validcourse = checkCourse($course_id);
+	
+	if (!$course_id){
+		$_SESSION['message_add'] = "Please enter Course ID";
+		header("Location: add_course.php");
+		exit;	
+	} elseif ($validcourse) {	
+		$_SESSION['message_add'] = "Course ID already exists!";
+		header("Location: add_course.php");
+		exit;
+	} elseif (!$course_title) {
+		$_SESSION['message_add'] = "Please enter Course Title";
+		header("Location: add_course.php");
+		exit;
+	} elseif (!$course_des) { 
+		$_SESSION['message_add'] = "Please enter Course Description";
+		header("Location: add_course.php");
+		exit;		
+	} elseif(strlen($course_id) != 8) {
+		$_SESSION['message_add'] = "Course ID must be 8 characters";
+		header("Location: add_course.php");
+		exit;
+	} 
+	
+	
+
 	
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>View All Sessions</title>
+    <title>Add Course Confirmation</title>
     <meta name = "author" content="Yuri Van Steenburg" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
@@ -23,7 +49,7 @@
 <body>
     <header>
         <div class = "view_all_sessions_header">
-        <h2> Previous Course Information </h2>
+        <h2> New Course Added </h2>
         </div>
     </header>
 <main>
@@ -37,8 +63,15 @@
             </thead>
             <tbody> <!-- Reference: https://github.com/chrisdanan/431Hw4/blob/master/index.php -->
                
-			   <?php
-
+			   <?php   
+			   		/******  Connect to database and add course ********/
+				$db = connectDB();
+	
+    			if (add_course($db, $course_id, $course_title, $course_des)) {
+   				} else { echo "Error adding course!";
+    			}	      
+                 
+                 /*******  Display new course added in system ******/
                     $db = connectDB();
 					display_course($db, $course_id);
 					mysqli_close($db);  //close database
@@ -48,41 +81,10 @@
     </div>
 	<br><br>
 
-	<?php
-		/********** Modify course details ***********/
-		$db = connectDB();
-		modify_course($db, $course_id, $course_title, $course_des);
-	?>
-	
-</main>
-<header>
-        <div class = "view_all_sessions_header">
-        <h2> Updated Course Information </h2>
-        </div>
-    </header>
-<main>
-    <div class = "Course_Schedule_tbl_div">
-        <table class = "table table-striped">
-            <thead>
-                <tr><th>Course ID</th>
-                    <th>Course Title    </th>
-					<th>Course Description</th>
-                </tr>
-            </thead>
-            <tbody> <!-- Reference: https://github.com/chrisdanan/431Hw4/blob/master/index.php -->
-               
-			   <?php
 
-                    $db = connectDB();
-					display_course($db, $course_id);
-					mysqli_close($db);
-                ?>
-            </tbody>
-        </table>
-    </div>
-
-	
 </main>
+
+
 <footer>
             <br>
             <br>
