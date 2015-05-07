@@ -54,7 +54,7 @@ add foreign key (Section_ID) references SECTIONS (Section_ID);
 
 create table HOMEWORK
 (	HW_ID int unsigned not null auto_increment primary key,
-(	S_ID int unsigned not null,
+	S_ID int unsigned not null,
 	Section_ID int unsigned not null,
 	name varchar(32) not null,
 	content mediumblob not null,
