@@ -10,7 +10,7 @@
 	//$firstvisit = true;
 	
 	
-	if ($_SESSION["id"]) {
+	if (isset($_SESSION["id"])) {
 		$firstvisit = false;
 	} else {
 		$firstvisit = true;
@@ -87,6 +87,12 @@
 
 		<form action = "view_all_sessions1.php" method = "post">
             <input class = "btn btn-primary btn-lg" type = "submit" value = "View Course Sessions"/>
+        </form>
+    	<br><br><br><br><br>
+    	
+		<form action = "index.php" method = "post">
+            <input class = "btn btn-primary btn-lg" type = "submit" value = "LOG OUT"/>
+            <?php session_destroy() ?>
         </form>
     
 
