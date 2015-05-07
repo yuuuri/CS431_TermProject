@@ -8,13 +8,18 @@
 	$course_id = $_POST["del_course"];
 
 	$validcourse = checkCourse($course_id);
+	$able_to_del_course = check_del_course($course_id);
 	
 	if (!$course_id){
-		$_SESSION['message_del'] = "Please enter Course ID";
+		$_SESSION['message_del_course'] = "Please enter Course ID";
 		header("Location: view_course_schedule.php");
 		exit;	
 	} elseif (!$validcourse) {	
-		$_SESSION['message_del'] = "Please enter a valid Course ID";
+		$_SESSION['message_del_course'] = "Please enter a valid Course ID";
+		header("Location: view_course_schedule.php");
+		exit;
+	} elseif (!$able_to_del_course) {	
+		$_SESSION['message_del_course'] = "Course ID is tied to an exisitng section!  Delete the section first!";
 		header("Location: view_course_schedule.php");
 		exit;
 	} 
