@@ -22,7 +22,6 @@
 		
 	} else {
 		$visit = false;
-		$course_id = $_SESSION["course_id"];
 	}
 	
 	if (!$visit) {
