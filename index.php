@@ -1,5 +1,8 @@
 <?php
 	session_start();
+	if (isset($_SESSION["id"])) {
+		session_destroy();
+	} 
 ?>
 
 <!-- Class:	CS431 Spring Term Project: -->
