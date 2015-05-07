@@ -39,14 +39,18 @@
 			
 			<label for="exampleInputName2">Course Description </label>
 			<input type="text" class="form-control" id="exampleInputName2" placeholder="" name="Description" maxlength = "500"> <br />
-			<input name = "SubmitButton" type = "submit" value = "Submit Changes ">
+			
+			<label for="exampleInputName2">Course Units </label>
+			<input type="text" class="form-control" id="exampleInputName2" placeholder="" name="course_units" maxlength = "1"> <br />
+			
+			<input name = "SubmitButton" type = "submit" value = "Add Course ">
 			</div>
 		
 		<?php
-            if (isset($_SESSION['message_add'])) {
-                echo '<font color = "red"><i>'.$_SESSION['message_add'].'</i></font>';
+            if (isset($_SESSION['message_add_course'])) {
+                echo '<font color = "red"><i>'.$_SESSION['message_add_course'].'</i></font>';
             }
-            unset($_SESSION['message_add']); // clear the value so that it doesn't display again
+            unset($_SESSION['message_add_course']); // clear the value so that it doesn't display again
         ?>
         </form>
     </div>
