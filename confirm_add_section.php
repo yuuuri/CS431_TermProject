@@ -94,7 +94,7 @@
 <footer>
             <br>
             <br>
-			<form action = "view_all_sessions1.php" method = "post">
+			<form action = "view_all_sessions_admin.php" method = "post">
 				<input name = "BackButton" type="submit" values="Back">
 			</form>
 
