@@ -97,15 +97,7 @@
     <br>
     <div class = "coursesList">
         <form action = "teaching_courses.php" method = "post">
-            <input class = "btn btn-primary btn-lg" type = "submit" value = "View Course List"/>
-        </form>
-    </div>
-        <br>
-        <br>
-        <br>
-    <div class = "courseDetails">
-        <form action = "course_details.php" method = "post">
-            <input class="btn btn-primary btn-lg" type = "submit" name = 's_id' value = "Course Details" />
+            <input class = "btn btn-primary btn-lg" type = "submit" value = "View Courses"/>
         </form>
     </div>
         <br>

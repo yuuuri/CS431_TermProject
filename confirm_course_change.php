@@ -8,13 +8,33 @@
 	//$course_id = $_POST["Course_ID"];
 	$course_title = $_POST["Course_Title"];
 	$course_des = $_POST["Description"];
+	$course_unit = $_POST["units"];
 	$course_id = $_SESSION["course_id"];
+	
+
+	if (!$course_title){
+		$_SESSION['message_confirm_edit'] = "Please enter Course Title";
+		header("Location: edit_course_schedule.php");
+		exit;	
+	} elseif (!$course_des) {	
+		$_SESSION['message_confirm_edit'] = "Please enter Course Description";
+		header("Location: edit_course_schedule.php");
+		exit;	
+	} elseif (!$course_unit) {
+		$_SESSION['message_confirm_edit'] = "Please enter Course Units";
+		header("Location: edit_course_schedule.php");
+		exit;	
+	} elseif(!is_numeric($course_unit)) {
+		$_SESSION['message_confirm_edit'] = "Please enter numeric value for Course Units";
+		header("Location: edit_course_schedule.php");
+		exit;
+	}
 	
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>View All Sessions</title>
+    <title>Confirm Course Change</title>
     <meta name = "author" content="Yuri Van Steenburg" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
@@ -33,6 +53,7 @@
                 <tr><th>Course ID</th>
                     <th>Course Title    </th>
 					<th>Course Description</th>
+					<th>Course Units</th>
                 </tr>
             </thead>
             <tbody> <!-- Reference: https://github.com/chrisdanan/431Hw4/blob/master/index.php -->
@@ -51,7 +72,7 @@
 	<?php
 		/********** Modify course details ***********/
 		$db = connectDB();
-		modify_course($db, $course_id, $course_title, $course_des);
+		modify_course($db, $course_id, $course_title, $course_des, $course_unit);
 	?>
 	
 </main>
@@ -67,6 +88,7 @@
                 <tr><th>Course ID</th>
                     <th>Course Title    </th>
 					<th>Course Description</th>
+					<th>Course Units</th>
                 </tr>
             </thead>
             <tbody> <!-- Reference: https://github.com/chrisdanan/431Hw4/blob/master/index.php -->

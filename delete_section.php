@@ -5,30 +5,27 @@
 ?>
 <?php
 
-	$course_id = $_POST["del_course"];
+	$section_id = $_POST["del_sec"];
 
-	$validcourse = checkCourse($course_id);
-	$able_to_del_course = check_del_course($course_id);
+	$validsection = checkSection($section_id);
+
 	
-	if (!$course_id){
-		$_SESSION['message_del_course'] = "Please enter Course ID";
-		header("Location: view_course_schedule.php");
+	if (!$section_id){
+		$_SESSION['message_del_sec'] = "Please enter Section ID";
+		header("Location: view_all_sessions_admin.php");
 		exit;	
-	} elseif (!$validcourse) {	
-		$_SESSION['message_del_course'] = "Please enter a valid Course ID";
-		header("Location: view_course_schedule.php");
-		exit;
-	} elseif (!$able_to_del_course) {	
-		$_SESSION['message_del_course'] = "Course ID is tied to an exisitng section!  Delete the section first!";
-		header("Location: view_course_schedule.php");
+	} elseif ($validsection == false) {	
+		$_SESSION['message_del_sec'] = "Please enter a valid Section ID";
+		header("Location: view_all_sessions_admin.php");
 		exit;
 	} 
+	
 	
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Confirm Course Deletion</title>
+    <title>Confirm Section Deletion</title>
     <meta name = "author" content="Yuri Van Steenburg" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
@@ -44,9 +41,12 @@
     <div class = "Course_Schedule_tbl_div">
         <table class = "table table-striped">
             <thead>
-                <tr><th>Course ID</th>
-                    <th>Course Title    </th>
-					<th>Course Description</th>
+                <tr><th>Section ID</th>
+                    <th>Course ID</th>
+                    <th>Professor Name</th>
+                    <th>Meeting Date</th>
+                    <th>Starting Time</th>
+                    <th>End Time</th>
                 </tr>
             </thead>
             <tbody> <!-- Reference: https://github.com/chrisdanan/431Hw4/blob/master/index.php -->
@@ -54,16 +54,15 @@
 			   <?php
 
                     $db = connectDB();
-                    display_course($db, $course_id);
+                    display_section($db, $section_id);
                     
                     
-					if (delete_course($db, $course_id)) {
-						$confirmdelete = "Course successfully deleted from database";
+					if (delete_section($db, $section_id)) {
+						$confirmdelete = "Section successfully deleted from database";
 					} else {
 						echo "Error deleting course detail!  Please try again <br />";
 					}
-					//display_course($db, $original_course_id);
-					//modify_course($db, $original_course_id, $course_id, $course_title, $course_des);
+					
                 ?>
             </tbody>
         </table>
@@ -82,7 +81,7 @@
 <footer>
             <br>
             <br>
-			<form action = "view_course_schedule.php" method = "post">
+			<form action = "view_all_sessions_admin.php" method = "post">
 				<input name = "BackButton" type="submit" values="Back">
 			</form>
 

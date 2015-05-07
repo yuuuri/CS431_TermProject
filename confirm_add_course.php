@@ -8,30 +8,35 @@
 	$course_id = $_POST["Course_ID"];
 	$course_title = $_POST["Course_Title"];
 	$course_des = $_POST["Description"];
+	$course_unit = $_POST["course_units"];
 
 	$validcourse = checkCourse($course_id);
 	
 	if (!$course_id){
-		$_SESSION['message_add'] = "Please enter Course ID";
+		$_SESSION['message_add_course'] = "Please enter Course ID";
 		header("Location: add_course.php");
 		exit;	
 	} elseif ($validcourse) {	
-		$_SESSION['message_add'] = "Course ID already exists!";
+		$_SESSION['message_add_course'] = "Course ID already exists!";
 		header("Location: add_course.php");
 		exit;
 	} elseif (!$course_title) {
-		$_SESSION['message_add'] = "Please enter Course Title";
+		$_SESSION['message_add_course'] = "Please enter Course Title";
 		header("Location: add_course.php");
 		exit;
 	} elseif (!$course_des) { 
-		$_SESSION['message_add'] = "Please enter Course Description";
+		$_SESSION['message_add_course'] = "Please enter Course Description";
 		header("Location: add_course.php");
 		exit;		
 	} elseif(strlen($course_id) != 8) {
-		$_SESSION['message_add'] = "Course ID must be 8 characters";
+		$_SESSION['message_add_course'] = "Course ID must be 8 characters";
 		header("Location: add_course.php");
 		exit;
-	} 
+	} elseif(!is_numeric($course_unit)) {
+		$_SESSION['message_add_course'] = "Please enter numeric";
+		header("Location: add_course.php");
+		exit;
+	}
 	
 	
 
@@ -59,6 +64,7 @@
                 <tr><th>Course ID</th>
                     <th>Course Title    </th>
 					<th>Course Description</th>
+					<th>Course Units</th>
                 </tr>
             </thead>
             <tbody> <!-- Reference: https://github.com/chrisdanan/431Hw4/blob/master/index.php -->
@@ -67,7 +73,7 @@
 			   		/******  Connect to database and add course ********/
 				$db = connectDB();
 	
-    			if (add_course($db, $course_id, $course_title, $course_des)) {
+    			if (add_course($db, $course_id, $course_title, $course_unit, $course_des)) {
    				} else { echo "Error adding course!";
     			}	      
                  
