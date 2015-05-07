@@ -57,9 +57,9 @@ create table HOMEWORK
 (	S_ID int unsigned not null,
 	Section_ID int unsigned not null,
 	name varchar(32) not null,
-	image mediumblob not null,
+	content mediumblob not null,
 	type varchar(32) not null,
-	size varchar(32) not null,
+	size int not null,
 	homework_grade int unsigned
 );
 
