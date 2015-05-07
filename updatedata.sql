@@ -52,6 +52,22 @@ alter table ENROLL
 add foreign key (S_ID) references STUDENT (S_ID),
 add foreign key (Section_ID) references SECTIONS (Section_ID);
 
+create table HOMEWORK
+(	HW_ID int unsigned not null auto_increment primary key,
+(	S_ID int unsigned not null,
+	Section_ID int unsigned not null,
+	name varchar(32) not null,
+	image mediumblob not null,
+	type varchar(32) not null,
+	size varchar(32) not null,
+	homework_grade int unsigned
+);
+
+alter table HOMEWORK
+add foreign key (S_ID) references ENROLL (S_ID),
+add foreign key (Section_ID) references ENROLL (Section_ID);
+
+
 create table CLASS_GRADES
 (	Section_ID int unsigned not null,
 	S_ID int unsigned not null,
@@ -61,7 +77,6 @@ create table CLASS_GRADES
 	Term_Grade float,
 	Course_Grade float
 );
-
 
 
 
