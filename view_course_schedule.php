@@ -25,6 +25,7 @@
                 <tr><th>Course ID</th>
                     <th>Course Title    </th>
 					<th>Course Description</th>
+					<th>Course Units </th>
                 </tr>
             </thead>
             <tbody> <!-- Reference: https://github.com/chrisdanan/431Hw4/blob/master/index.php -->
@@ -50,11 +51,11 @@
                         </div>
                     </form>
                         <?php
-                            if(isset($_SESSION['message_edit']))
+                            if(isset($_SESSION['message_edit_course']))
                             {
-                                echo '<font color = "red"><i>'.$_SESSION['message_edit'].'</i></font>';
+                                echo '<font color = "red"><i>'.$_SESSION['message_edit_course'].'</i></font>';
                             }
-                            unset($_SESSION['message_edit']); // clear the value so that it doesn't display again
+                            unset($_SESSION['message_edit_course']); // clear the value so that it doesn't display again
                         ?>
     </div>
 	<br /> <br />
@@ -68,11 +69,11 @@
                         </div>
                     </form>
                         <?php
-                            if(isset($_SESSION['message_del']))
+                            if(isset($_SESSION['message_del_course']))
                             {
-                                echo '<font color = "red"><i>'.$_SESSION['message_del'].'</i></font>';
+                                echo '<font color = "red"><i>'.$_SESSION['message_del_course'].'</i></font>';
                             }
-                            unset($_SESSION['message_del']); // clear the value so that it doesn't display again
+                            unset($_SESSION['message_del_course']); // clear the value so that it doesn't display again
                         ?>
     </div>
 	
@@ -89,12 +90,16 @@
     </div>
 	
 </main>
+</body>
 <footer>
             <br>
             <br>
 			<form action = "admin.php" method = "post">
-				<input name = "BackButton" type="submit" values="Back">
+				<input name = "BackButton" type= "submit" value= "Back">
 			</form>
+
+
+
 
 </footer>
 </body>
