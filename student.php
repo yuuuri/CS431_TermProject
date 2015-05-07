@@ -1,63 +1,53 @@
-<?php 
- session_start();
-    //declare student_ID variable
-    $student_id = $_POST['s_id'];
+<?php
+    session_start();
+    include 'define_class.php';
+?>
 
 
-    //======== BIGIN INPUT PARSING ===========
-    //check for user input errors such as missing CWID or less than 9 digits
-    //if error is found, kick the user back to index, following an error msg
-
-    if(!$student_id){
-        $_SESSION['message1'] = "Please enter Student ID.";
-        header("Location: index.php");
-    }elseif(strlen($student_id) < 9){
-        $_SESSION['message1'] = "Student ID must be 9 digits.";
-        header("Location: index.php");
-    }elseif(!is_numeric($student_id)){
-        $_SESSION['message1'] = "Please enter numeric 9 digits.";
-        header("Location: index.php");
-    }else{
-
-        //user entered 9 numeric digits, now check if he/she is in database
-
-        //local variable to connect to database
-        $user = 'root';
-        $password = 'root';
-        $db = 'TermProject';
-        $host = '127.0.0.1';
-        $port = 8889;
-        $socket = 'localhost:/Applications/MAMP/tmp/mysql/mysql.sock';
-
-        $link = mysqli_init();
-        $success = mysqli_real_connect($link, $host, $user, $password, $db, $port, $socket);
-        if (mysqli_connect_errno()) {
-            echo "<p>Error: Could not connect to data base.  Try again<p>\n";
-            exit;
-        } 
-        //echo "Successfully connected to database TermProject\n";
-        //database connected
-
-        $query = 'SELECT S_ID, Fname, Lname from STUDENT WHERE S_ID = '.$student_id.';';
-        $result = $link->query($query) or die("ERROR: " . mysqli_error($link));
-        if($result->num_rows === 0){
-            $_SESSION['message1'] = "The student does not exist. Please enter valid student ID.";
+<?php
+    $accounttype = 'STUDENT';
+    //$firstvisit = true;
+    
+    
+    if (isset($_SESSION["id"])) {
+        $firstvisit = false;
+    } else {
+        $firstvisit = true;
+    }
+    
+    /******* Error Checking from login page **********/
+    
+    if ($firstvisit)
+    {
+        $_SESSION["id"] = $_POST["s_id"];
+        $student_ID = $_SESSION["id"];
+    
+        
+        if (!$student_ID){
+            $_SESSION['message1'] = "Please enter your student ID";
+            header("Location: index.php");  
+        } elseif(!checkCWID($student_ID,$accounttype)) {  
+            $_SESSION['message1'] = "ID entered not valid!";
             header("Location: index.php");
-        }else{
-
-            //create a session variable
-            $_SESSION['sess_var'] = $student_id;
-
-            //echo 'The content of $_SESSION[\'session_var\'] is'.$_SESSION['sess_var'].'<br />';
-
-            $row = $result->fetch_assoc();
-            $student_id = $row['S_ID'];
-            $student_fname = $row['Fname'];
-            $student_lname = $row['Lname'];
-            $link->close();
+        } elseif(strlen($student_ID) < 9) {
+            $_SESSION['message1'] = "Student ID must be 9 digits";
+            header("Location: index.php");
+        } elseif(!is_numeric($student_ID)) {
+            $_SESSION['message1'] = "Please enter numeric";
+            header("Location: index.php");
         }
+    
+        $student_fname = getFname($student_ID, $accounttype);
+        $student_lname = getLname($student_ID, $accounttype);
+        $_SESSION["fname"] = $student_fname;
+        $_SESSION["lname"] = $student_lname;
+    } else {
+        $student_ID = $_SESSION["id"];
+        $student_fname = $_SESSION["fname"];
+        $student_lname = $_SESSION["lname"];
     }
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,38 +60,41 @@
 <body>
 <header>
     <div class = "student_greeting">
-        <h2> Student Page </h2>
+    <h2> Student Page </h2>
     </div>
 </header>
 <main>
     <div class = "student_greeting">
+        
         <?php
-            echo '<h3 >Hello! '.$student_fname.'  '.$student_lname.',     Student ID: '.$student_id.'</h3>';
+            echo '<h3 >Hello! '.$_SESSION["fname"].' '.$_SESSION["lname"].' <br />Student  ID: '.$student_ID.'<h3>';
         ?>
-
-    </div>
-    <br>
-    <br>
-    <br>
-    <div class = "student_pg_buttons">
-        <form action = "view_all_sessions.php" method = "post">
-            <input class = "btn btn-primary btn-lg" type = "submit" value = "View All Sessions"/>
-        </form>
     
+    </div>
+    
+    <br><br><br>
+            
+    <div class = "student_pg_buttons">
 
-        <br>
-        <br>
-        <br>
+            <form action = "view_all_sessions.php" method = "post">
+                <input class = "btn btn-primary btn-lg" type = "submit" value = "View All Sessions"/>
+            </form>      
 
+            <br><br><br>
 
-        <form action = "view_my_classes.php" method = "post">
-            <input class="btn btn-primary btn-lg" type = "submit" name = 's_id' value = "View My Classes" />
-        </form>
+            <form action = "view_my_classes.php" method = "post">
+                <input class="btn btn-primary btn-lg" type = "submit" name = 's_id' value = "View My Classes" />
+            </form>
+
+            <br><br><br><br><br>
+            
+            <form action = "index.php" method = "post">
+                <input class = "btn btn-primary btn-lg" type = "submit" value = "LOG OUT"/>
+                <?php session_destroy() ?>
+            </form>
     </div>
 
 </main>
 
 </body>
 </html>
-
-       
