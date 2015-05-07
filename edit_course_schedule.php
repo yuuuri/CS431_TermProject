@@ -6,21 +6,43 @@
 
 
 <?php
-	$_SESSION["course_id"] = $_POST["edit_course"];
-	$course_id = $_POST["edit_course"];
+	
+	if (isset($_SESSION["course_id"])) {
+	
+		if(isset($_SESSION['message_confirm_edit'])) {
+			$visit = true;
+			$course_id = $_SESSION["course_id"];
+		} else {	
+			if ($_POST["edit_course"] != $_SESSION["course_id"]) {	
+				$course_id = $_POST["edit_course"];
+				$_SESSION["course_id"] = $_POST["edit_course"];
+				$visit = false;
+			}	
+		}
+		
+	} else {
+		$visit = false;
+		$course_id = $_SESSION["course_id"];
+	}
+	
+	if (!$visit) {
+	
+		$course_id = $_POST["edit_course"];
 	
 		
-	if (!$course_id){
-		$_SESSION['message_del'] = "Please enter Course ID";
-		header("Location: view_course_schedule.php");	
-	} elseif(!checkCourse($course_id)) {	
-		$_SESSION['message_del'] = "Course ID entered not valid!";
-		header("Location: view_course_schedule.php");
-	// } elseif(!strlen($admin_ID) == 7 ) {
-		// $_SESSION['message'] = "SSN must be 8 digits";
-		// header("Location: view_course_schedule.php");
-	} 
-	
+		if (!$course_id){
+			$_SESSION['message_edit_course'] = "Please enter Course ID";
+			header("Location: view_course_schedule.php");
+			exit;	
+		} elseif(!checkCourse($course_id)) {	
+			$_SESSION['message_edit_course'] = "Course ID entered not valid!";
+			header("Location: view_course_schedule.php");
+			exit;
+		} 
+		
+		
+		$_SESSION["course_id"] = $_POST["edit_course"];
+	}
 ?>
 
 
@@ -59,14 +81,30 @@
 			<tr>
 			</tr>
 			<label for="exampleInputName2">Course Title </label>
-			<input type="text" class="form-control" id="exampleInputName2" placeholder="" name="Course_Title" maxlength = "30"> <br />
+			<input type="text" class="form-control" id="exampleInputName2" placeholder="ex. Computer Class" name="Course_Title" maxlength = "30"> <br />
 			
 			<label for="exampleInputName2">Course Description </label>
-			<input type="text" class="form-control" id="exampleInputName2" placeholder="" name="Description" maxlength = "500"> <br />
+			<input type="text" class="form-control" id="exampleInputName2" placeholder="ex. Description" name="Description" maxlength = "500"> <br />
+			
+			<label for="exampleInputName2">Course Units </label>
+			<input type="text" class="form-control" id="exampleInputName2" placeholder="ex. 4" name="units" maxlength = "1"> <br />
+				
+			<br>
+			
 			<input name = "SubmitButton" type = "submit" value = "Submit Changes ">
 		
 		
 			</div>
+			<br><br>
+			
+		<?php
+            if (isset($_SESSION['message_confirm_edit'])) {
+                echo '<font color = "red"><i>'.$_SESSION['message_confirm_edit'].'</i></font>';
+            }
+            unset($_SESSION['message_confirm_edit']); // clear the value so that it doesn't display again
+        ?>
+			
+			
 		</form>
 		
 		
