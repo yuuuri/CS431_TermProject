@@ -122,6 +122,14 @@
         <input type="file" name="uploaded_file"><br>
         <input type="submit" value="Upload file">
     </form>
+    <?php
+    if(isset($_SESSION['message_hw']))
+    {
+        echo '<font color = "red"><i>'.$_SESSION['message_hw'].'</i></font>';
+    }
+    unset($_SESSION['message_hw']); // clear the value so that it doesn't display again
+    ?>
+    <br><br>
     <p>
         <a href="list_files.php">See all files</a>
     </p>
