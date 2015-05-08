@@ -54,18 +54,12 @@ add foreign key (Section_ID) references SECTIONS (Section_ID);
 
 CREATE TABLE upload (
 id INT NOT NULL AUTO_INCREMENT,
-S_ID int unsigned not null,
-Section_ID int unsigned not null,
 name VARCHAR(30) NOT NULL,
 type VARCHAR(30) NOT NULL,
 size INT NOT NULL,
 content MEDIUMBLOB NOT NULL,
 PRIMARY KEY(id)
 );
-
-alter table HOMEWORK
-add foreign key (S_ID) references ENROLL (S_ID),
-add foreign key (Section_ID) references ENROLL (Section_ID);
 
 
 create table CLASS_GRADES
