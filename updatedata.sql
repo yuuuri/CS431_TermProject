@@ -52,22 +52,22 @@ alter table ENROLL
 add foreign key (S_ID) references STUDENT (S_ID),
 add foreign key (Section_ID) references SECTIONS (Section_ID);
 
-CREATE TABLE HOMEWORK (
-	hw_id INT NOT NULL AUTO_INCREMENT,
-	S_ID int unsigned not null,
-	Section_ID int unsigned not null,
-	name VARCHAR(30) NOT NULL,
-	type VARCHAR(30) NOT NULL,
-	size INT NOT NULL,
-	content MEDIUMBLOB NOT NULL,
-	PRIMARY KEY(hw_id)
+CREATE TABLE `FILE` (
+    `hw_id`     int unsigned not null auto_increment,
+    `S_ID`		int unsigned not null,
+    `Section_ID`	int unsigned not null,
+    `name`      varchar(255) not null default 'Untitled.txt',
+    `mime`      varchar(50) not null default 'text/plain',
+    `size`      bigint Unsigned not null default 0,
+    `data`      mediumblob not null,
+    `created`   datetime not null,
+    primary key (`hw_id`)
 );
 
-alter table HOMEWORK
+alter table FILE
 add foreign key (S_ID) references ENROLL (S_ID),
 add foreign key (Section_ID) references ENROLL (Section_ID);
-
-
+ 
 create table CLASS_GRADES
 (	Section_ID int unsigned not null,
 	S_ID int unsigned not null,
