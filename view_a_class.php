@@ -117,24 +117,20 @@
 <br><br>
     <div class = "bottom_buttons" >          
         <h3>Submit My Homework</h3>
-            <form action = "upload_hw.php" method = "post" enctype="multipart/form-data" />
-                <div>
-                    <input type = "hidden" name = "MAX_FILE_SIZE" value = "1000000" />
-                    <label for ="userfile"><h4>Upload a file: </h4></label>
-                    <input type = "file" name = "uploaded_file" class = "inputFile" /><br>
-                    <input class ="btn btn-success" type = "submit" value="Upload file" />
-                </div>
-            </form>
-            <?php
-                if(isset($_SESSION['message_hw']))
-                {
-                    echo '<font color = "red"><i>'.$_SESSION['message_hw'].'</i></font>';
-                }
-                unset($_SESSION['message_hw']); // clear the value so that it doesn't display again
-            ?>
-            <p>
-                <a href="list_files.php">See all files</a>
-            </p>
+
+    <form action="add_file.php" method="post" enctype="multipart/form-data">
+        <input type="file" name="uploaded_file"><br>
+        <input type="submit" value="Upload file">
+    </form>
+    <p>
+        <a href="list_files.php">See all files</a>
+    </p>
+
+
+
+
+
+            
 
     </div><br><br>
 </main>
