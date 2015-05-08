@@ -130,9 +130,9 @@
     unset($_SESSION['message_hw']); // clear the value so that it doesn't display again
     ?>
     <br><br>
-    <p>
-        <a href="list_files.php">See all files</a>
-    </p>
+    <h4>
+        <a href="list_files.php"><h4>See all files</h4></a>
+    </h4>
 
 
 
