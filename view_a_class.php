@@ -120,7 +120,7 @@
 
     <form action="add_file.php" method="post" enctype="multipart/form-data">
         <input type="file" name="uploaded_file"><br>
-        <input type="submit" value="Upload file">
+        <input type="submit" class="btn btn-primary" value="Upload file">
     </form>
     <?php
     if(isset($_SESSION['message_hw']))
