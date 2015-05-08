@@ -1,4 +1,4 @@
-# CS431_TermProject - Due 05/01
+# CS431_TermProject - Due 05/08 Tonight
 CPSC 431 Term Project - Victor, Annette, Yuri
 
 Build a web-based on-campus course management system for faculty/students/administrators. 
