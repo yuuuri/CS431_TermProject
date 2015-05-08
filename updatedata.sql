@@ -52,14 +52,24 @@ alter table ENROLL
 add foreign key (S_ID) references STUDENT (S_ID),
 add foreign key (Section_ID) references SECTIONS (Section_ID);
 
-CREATE TABLE upload (
-id INT NOT NULL AUTO_INCREMENT,
-name VARCHAR(30) NOT NULL,
-type VARCHAR(30) NOT NULL,
-size INT NOT NULL,
-content MEDIUMBLOB NOT NULL,
-PRIMARY KEY(id)
+CREATE TABLE HOMEWORK (
+	hw_id INT NOT NULL AUTO_INCREMENT,
+	S_ID int unsigned not null,
+	Section_ID int unsigned not null,
+	name VARCHAR(30) NOT NULL,
+	type VARCHAR(30) NOT NULL,
+	size INT NOT NULL,
+	content MEDIUMBLOB NOT NULL,
+	PRIMARY KEY(hw_id)
 );
+
+alter table HOMEWORK
+add foreign key (S_ID) references ENROLL (S_ID),
+add foreign key (Section_ID) references ENROLL (Section_ID);
+
+
+<div class = "bottom_buttons" >
+
 
 
 create table CLASS_GRADES
