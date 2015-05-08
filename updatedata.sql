@@ -68,10 +68,6 @@ add foreign key (S_ID) references ENROLL (S_ID),
 add foreign key (Section_ID) references ENROLL (Section_ID);
 
 
-<div class = "bottom_buttons" >
-
-
-
 create table CLASS_GRADES
 (	Section_ID int unsigned not null,
 	S_ID int unsigned not null,
@@ -81,9 +77,6 @@ create table CLASS_GRADES
 	Term_Grade float,
 	Course_Grade float
 );
-
-
-
 
 
 insert into ADMIN_STAFF values
