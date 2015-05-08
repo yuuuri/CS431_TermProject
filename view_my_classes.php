@@ -54,11 +54,12 @@
                             return $link;
                         }
                         function display_my_classes($link_db){
-
+                             
                             $select = 'SELECT s.Section_ID, s.Course_ID, s.Meeting_Date, s.Start_Time, s.End_Time, c.Course_Unit, s.Syllabus ';
-                            $from = 'FROM COURSE as c, SECTIONS as s, ENROLL as en ';
-                            $where = 'WHERE en.S_ID = '.$_SESSION['sess_var'].' and en.Section_ID = s.Section_ID and s.Course_ID = c.Course_ID';
+                            $from = 'FROM COURSE as c, SECTIONS as s, ENROLL as e ';
+                            $where = 'WHERE e.S_ID = '.$_SESSION['sess_var'].' AND e.Section_ID = s.Section_ID AND s.Course_ID = c.Course_ID;';
                             $query = $select.$from.$where;
+                            //SELECT s.Section_ID, s.Course_ID, s.Meeting_Date, s.Start_Time, s.End_Time, s.Syllabus FROM COURSE as c, SECTIONS as s, ENROLL as e WHERE e.S_ID = 300000001 AND e.Section_ID = s.Section_ID AND s.Course_ID = c.Course_ID;
                             $result = $link_db->query($query) or die("ERROR: " . mysqli_error($link_db));
                             if($result->num_rows === 0){
                                 echo "<p>No records found</p>";
@@ -103,21 +104,21 @@
 
         <br><br>
 
-        <h2>Submit homework</h2>
-            <form action = "upload_hw.php" method = "post" enctype="multipart/form-data" />
-                <div>
-                    <input type = "hidden" name = "MAX_FILE_SIZE" value = "1000000" />
-                    <label for ="userfile"><h4>Upload a file: </h4></label>
-                    <input type = "file" name = "userfile" id = "userfile" /><br>
-                    <input class ="btn btn-success" type = "submit" value = "Submit" />
-                </div>
-            </form>
+        <h3>Submitting homework?</h3>
+            <form class="form-inline" form action="view_a_class.php" method="POST">
+                    <div class="form-group">
+                        <label for="exampleInputName2">Choose Your Class: </label>
+                        <input type="text" class="form-control" id="exampleInputName2" placeholder="Enter Section Number" name="asec_num" maxlength = "5">
+                        <button type="submit" class="btn btn-primary">Go To My Class</button>
+                    </div>
+            </form>             
+
             <?php
-                if(isset($_SESSION['message_hw']))
+                if(isset($_SESSION['message_aclass']))
                 {
-                    echo '<font color = "red"><i>'.$_SESSION['message_hw'].'</i></font>';
+                    echo '<font color = "red"><i>'.$_SESSION['message_aclass'].'</i></font>';
                 }
-                unset($_SESSION['message_hw']); // clear the value so that it doesn't display again
+                unset($_SESSION['message_aclass']); // clear the value so that it doesn't display again
             ?>
 
     </div><br><br>
