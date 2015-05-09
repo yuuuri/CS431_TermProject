@@ -1,6 +1,40 @@
 <?php
     session_start();
-    $student_id = $_SESSION['sess_var'];
+    include 'define_class.php';
+    $student_id = $_SESSION['id'];
+    
+    
+    function display_my_classes($link_db, $student_id)
+    {
+        $select = 'SELECT s.Section_ID, s.Course_ID, s.Meeting_Date, s.Start_Time, s.End_Time, c.Course_Unit, s.Syllabus ';
+        $from = 'FROM COURSE as c, SECTIONS as s, ENROLL as en ';
+        $where = "WHERE en.S_ID = $student_id and en.Section_ID = s.Section_ID and s.Course_ID = c.Course_ID";
+        $query = $select.$from.$where;
+        $result = $link_db->query($query) or die("ERROR: " . mysqli_error($link_db));
+        if($result->num_rows === 0){
+            echo "<p>No records found</p>";
+            //exit();
+        } else {
+            while($row = mysqli_fetch_array($result)){
+                echo "<tr>";
+                echo "<td>" . $row['Section_ID'] . "</td>";
+                echo "<td>" . $row['Course_ID'] . "</td>";
+                echo "<td>" . $row['Meeting_Date'] . "</td>";
+                echo "<td>" . $row['Start_Time']."</td>";
+                echo "<td>" . $row['End_Time']."</td>";
+                echo "<td>" . $row['Course_Unit']."</td>";
+                echo "<td>" . $row['Syllabus']."</td>";
+                echo "</tr>";
+            }//end of while
+        $result->free();
+        $link_db->close();
+        }//end of else
+    }//end of function display_my_classes
+    
+    
+    
+    
+    
 ?>
 <!DOCTYPE html>
 <html>
@@ -34,64 +68,9 @@
                 <?php
                     //echo 'The content of $_SESSION[\'session_var\'] is'.$_SESSION['sess_var'].'<br />';
                     //echo '$student_id is '.$student_id;
-
-                    class view_my_classes {
-                        function connect() {
-                            //local variable to connect to database
-                            $user = 'root';
-                            $password = 'root';
-                            $db = 'TermProject';
-                            $host = '127.0.0.1';
-                            $port = 8889;
-                            $socket = 'localhost:/Applications/MAMP/tmp/mysql/mysql.sock';
-
-                            $link = mysqli_init();
-                            $success = mysqli_real_connect($link, $host, $user, $password, $db, $port, $socket);
-                            if (mysqli_connect_errno()) {
-                                echo "<p>Error: Could not connect to data base.  Try again<p>\n";
-                                exit;
-                            }
-                            return $link;
-                        }
-                        function display_my_classes($link_db){
-                             
-                            $select = 'SELECT s.Section_ID, s.Course_ID, s.Meeting_Date, s.Start_Time, s.End_Time, c.Course_Unit, s.Syllabus ';
-                            $from = 'FROM COURSE as c, SECTIONS as s, ENROLL as e ';
-                            $where = 'WHERE e.S_ID = '.$_SESSION['sess_var'].' AND e.Section_ID = s.Section_ID AND s.Course_ID = c.Course_ID;';
-                            $query = $select.$from.$where;
-                            //SELECT s.Section_ID, s.Course_ID, s.Meeting_Date, s.Start_Time, s.End_Time, s.Syllabus FROM COURSE as c, SECTIONS as s, ENROLL as e WHERE e.S_ID = 300000001 AND e.Section_ID = s.Section_ID AND s.Course_ID = c.Course_ID;
-                            $result = $link_db->query($query) or die("ERROR: " . mysqli_error($link_db));
-                            if($result->num_rows === 0){
-                                echo "<p>No records found</p>";
-                                //exit();
-                            }else {
-                                    while($row = mysqli_fetch_array($result)){
-                                        echo "<tr>";
-                                        echo "<td>" . $row['Section_ID'] . "</td>";
-                                        echo "<td>" . $row['Course_ID'] . "</td>";
-                                        echo "<td>" . $row['Meeting_Date'] . "</td>";
-                                        echo "<td>" . $row['Start_Time']."</td>";
-                                        echo "<td>" . $row['End_Time']."</td>";
-                                        echo "<td>" . $row['Course_Unit']."</td>";
-                                        echo "<td>" . $row['Syllabus']."</td>";
-                                        echo "</tr>";
-                                    }//end of while
-
-                                $result->free();
-                                $link_db->close();
-
-                            }//end of else
-                        }//end of function display_all_sections
-
-
-
-                    }//end of class view_all_sections
-
-                    $v = new view_my_classes();
-                    $link_db = $v->connect();
-                    $v->display_my_classes($link_db);
-                    
-
+                    $db = connectDB();
+                    display_my_classes($db, $student_id);
+                
                 ?>
             </tbody>
         </table>
