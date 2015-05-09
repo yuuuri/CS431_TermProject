@@ -1,7 +1,8 @@
 <?php
     session_start();
-    $student_id = $_SESSION['id'];
+    include 'define_class.php';
 
+    $student_id = $_SESSION['id'];
     //declare course variable
     $course_id = $_POST['course_id'];
     if(!$course_id){
@@ -11,29 +12,21 @@
         $_SESSION['message_c'] = "Invalid Course ID, Please enter Course ID.";
         header("Location: view_all_sessions.php");
     }else{
-                //local variable to connect to database
-        	$host = 'localhost';
-        	$user = 'root';
-        	$password = '';
-        	$database = 'TermProject';
-			$link = new mysqli ($host, $user, $password, $database);
-		
-
+                $link = connectDB();
+        
                 $select = 'SELECT Description ';
                 $from = 'FROM COURSE ';
                 $where = 'WHERE Course_ID = \''.$course_id.'\';';
                 $query = $select.$from.$where;
-
                 $result = $link->query($query) or die("ERROR: " . mysqli_error($link));
-				if($result->num_rows === 0){
-            	$_SESSION['message_c'] = "Such Course does not exist. Please enter valid course.";
-            	header("Location: view_all_sessions.php");
-        		}else{
-
-		            $row = $result->fetch_assoc();
-		            $course_desc = $row['Description'];
-		            $link->close();
-		        }
+                if($result->num_rows === 0){
+                $_SESSION['message_c'] = "Such Course does not exist. Please enter valid course.";
+                header("Location: view_all_sessions.php");
+                }else{
+                    $row = $result->fetch_assoc();
+                    $course_desc = $row['Description'];
+                    $link->close();
+                }
     }
 ?>
 <!DOCTYPE html>
@@ -48,24 +41,24 @@
 <body>
     <header>
         <div class = "view_course_d">
-        	<?php
-            	echo '<h2>'.$course_id.'</h2>';
+            <?php
+                echo '<h2>'.$course_id.'</h2>';
             ?>
         </div>
     </header>
 <main>
-	<div class = "view_course_p">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-			    	<h3 class="panel-title">Course Description</h3>
-			</div>
-			  	<div class="panel-body">
-				    <?php
-				    	echo '<p>'.$course_desc.'</p>'
-				    ?>
-		  		</div>
-		</div>
-	</div>
+    <div class = "view_course_p">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                    <h3 class="panel-title">Course Description</h3>
+            </div>
+                <div class="panel-body">
+                    <?php
+                        echo '<p>'.$course_desc.'</p>'
+                    ?>
+                </div>
+        </div>
+    </div>
     <br>
     <br>
     <br>
