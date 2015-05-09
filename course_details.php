@@ -1,17 +1,21 @@
+
+
 <?php
-	session_start();
-	include 'define_class.php';
-	
+
+session_start();
+$course_id = $_POST['course_id'];
+include 'define_class.php';
+$_SESSION['course_id'] = $_POST['course_id'];
+$account = 'PROFESSOR';
+
+
+//making db connection
+$con = mysqli_connect('localhost', 'root', '', 'TermProject');
+//Time for that query
+$sql = "SELECT * FROM COURSE WHERE Course_ID = '$course_id'";
+$records = mysqli_query($con, $sql);
+
 ?>
-
-/*<?php
-
-    $course_id = $_SESSION['course_id'];
-    $course_title = $_POST["Course_Title"];
-    $course_des = $_POST["Description"];
-   // $original_course_id = $_SESSION["course_id"];
-    
-?>*/
 
 <!DOCTYPE html>
 <html>
@@ -36,60 +40,42 @@
 					<th>Course Description</th>
                 </tr>
             </thead>
-            <tbody> <!-- Reference: https://github.com/chrisdanan/431Hw4/blob/master/index.php -->
+            <tbody> 
 			   <?php
-
-                    $db = connectDB();
-					display_course($db, $course_id);
+                    while($cDetails = mysqli_fetch_assoc($records)){
+                        echo "<tr>";
+                        echo "<td>".$cDetails['Course_ID']."</td>";
+                        echo "<td>".$cDetails['Course_Title']."</td>";
+                        echo "<td>".$cDetails['Description']."</td>";
+                        echo "</tr>";
+                    }
 
                 ?>
             </tbody>
         </table>
     </div>
-    
-    <div class = "bottom_buttons" >
-                    <form class="form-inline" form action="edit_course_schedule.php" method="POST">
-                        <div class="form-group">
-                            <label for="exampleInputName2">Modify Details of a Course: </label>
-                            <input type="text" class="form-control" id="exampleInputName2" placeholder=" Enter Course ID" name="edit_course" maxlength = "8">
-                            <button type="submit" class="btn btn-info">Edit</button>
-                        </div>
-                    </form>
-                        <?php
-                            if(isset($_SESSION['message']))
-                            {
-                                echo '<font color = "red"><i>'.$_SESSION['message'].'</i></font>';
-                            }
-                            unset($_SESSION['message']); // clear the value so that it doesn't display again
-                        ?>
-    </div>
-    <br /> <br />
-    
-    <div class = "bottom_buttons" >
-                    <form class="form-inline" form action="modify_course_schedule.php" method="POST">
-                        <div class="form-group">
 
-                            <button type="submit" class="btn btn-info">Add/Delete a Course</button>
+    <br /> 
+    <br />
+    
+<!--     <h3>Course Details: </h3>
+                <form class="form-inline" form action="course_details.php" method="POST">
+                        <div class="form-group">
+                            <label for="exampleInputName2">Course ID: </label>
+                            <input type="text" class="form-control" id="exampleInputName2" placeholder="" name="course_id" maxlength = "9">
+                            <button type="submit" class="btn btn-info">Submit</button>
                         </div>
-                    </form>
-                        <?php
-                            if(isset($_SESSION['message_c']))
-                            {
-                                echo '<font color = "red"><i>'.$_SESSION['message_c'].'</i></font>';
-                            }
-                            unset($_SESSION['message_c']); // clear the value so that it doesn't display again
-                        ?>
-    </div>
+                </form>
 
 	<br /> 
-    <br />
+    <br /> -->
 
 	
 </main>
 <footer>
             <br>
             <br>
-			<form action = "facultyPage.php" method = "post">
+			<form action = "teaching_courses.php" method = "post">
 				<input name = "BackButton" type="submit" values="Back">
 			</form>
 
