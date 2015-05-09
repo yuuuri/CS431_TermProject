@@ -1,7 +1,8 @@
 <?php
-    session_start();
-    $student_id = $_SESSION['sess_var'];
-    $sec_num = $_SESSION['hw_sec_var'];
+session_start();
+include 'define_class.php';
+$student_id = $_SESSION['id'];
+$sec_num = $_SESSION['hw_sec_var'];
 
 /**** Reference: ****/
 /*http://bytes.com/topic/php/insights/740327-uploading-files-into-mysql-database-using-php*/
@@ -12,20 +13,7 @@ if(isset($_FILES['uploaded_file'])) {
     // Make sure the file was sent without errors
     if($_FILES['uploaded_file']['error'] == 0) {
 
-        //local variable to connect to database
-        $user = 'root';
-        $password = 'root';
-        $db = 'TermProject';
-        $host = '127.0.0.1';
-        $port = 8889;
-        $socket = 'localhost:/Applications/MAMP/tmp/mysql/mysql.sock';
-
-        $link = mysqli_init();
-        $success = mysqli_real_connect($link, $host, $user, $password, $db, $port, $socket);
-        if (mysqli_connect_errno()) {
-            echo "<p>Error: Could not connect to data base.  Try again<p>\n";
-            exit;
-        } 
+        $link = connectDB();
         
         // Gather all required data
         $name = $link->real_escape_string($_FILES['uploaded_file']['name']);
@@ -51,7 +39,7 @@ if(isset($_FILES['uploaded_file'])) {
         }
         else {
             echo 'Error! Failed to insert the file'
-               . "<pre>{$dbLink->error}</pre>";
+               . "<pre>{$link->error}</pre>";
         }
     }
     else {
