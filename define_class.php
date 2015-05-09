@@ -37,7 +37,8 @@
 		$query = "select * from ".$accounttype." where ".$queryID." = ".$CWID;
 		
 		$result = mysqli_query($db, $query);
-		if ($result){
+		$num = mysqli_num_rows($result);
+		if ($num == 1){
 			mysqli_close($db);
 			return true;
 		} else {
