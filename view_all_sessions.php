@@ -1,8 +1,6 @@
 <?php
     session_start();
-    include 'define_class.php';
     $student_id = $_SESSION['id'];
-
 ?>
 
 <!DOCTYPE html>
@@ -37,8 +35,57 @@
             <tbody> <!-- Reference: https://github.com/chrisdanan/431Hw4/blob/master/index.php -->
                 <?php
 
-                    $db = connectDB();
-                    display_all_sections($db);
+                    class view_all_sections {
+                        function connect() {
+                        $host = 'localhost';
+                        $username = 'root';
+                        $password = '';
+                        $database = 'TermProject';
+                        
+                        @ $db = mysqli_connect($host, $username, $password, $database);
+                        if (mysqli_connect_errno()) {
+                            echo "Error connecting to database.  Please try again.";
+                            exit;
+                        }
+                            return $db;
+                        }
+                        function display_all_sections($link_db){
+
+                            $select = 'SELECT s.Section_ID, s.Course_ID, p.Fname, p.Lname, s.Meeting_Date, s.Start_Time, s.End_Time, c.Course_Unit ';
+                            $from = 'FROM SECTIONS as s, PROFESSOR as p, COURSE as c ';
+                            $where = 'WHERE s.P_ID = p.P_ID and s.Course_ID = c.Course_ID;';
+
+                            $query = $select.$from.$where;
+
+                            $result = $link_db->query($query) or die("ERROR: " . mysqli_error($link_db));
+                            if($result->num_rows === 0){
+                                echo "<p>No records found</p>";
+                                //exit();
+                            }else {
+                                    while($row = mysqli_fetch_array($result)){
+                                        echo "<tr>";
+                                        echo "<td>" . $row['Section_ID'] . "</td>";
+                                        echo "<td>" . $row['Course_ID'] . "</td>";
+                                        echo "<td>" . $row['Fname'] . "</td>";
+                                        echo "<td>" . $row['Lname'] . "</td>";
+                                        echo "<td>" . $row['Meeting_Date'] . "</td>";
+                                        echo "<td>" . $row['Start_Time']."</td>";
+                                        echo "<td>" . $row['End_Time']."</td>";
+                                        echo "<td>" . $row['Course_Unit']."</td>";
+                                        echo "</tr>";
+                                    }//end of while
+
+                                $result->free();
+                                $link_db->close();
+
+                            }//end of else
+                        }//end of function display_all_sections
+                    }//end of class view_all_sections
+  
+                    $v = new view_all_sections();
+                    $link_db = $v->connect();
+                    $v->display_all_sections($link_db);
+
 
                 ?>
             </tbody>
