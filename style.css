@@ -16,7 +16,7 @@ body {padding: 80px 10px 0px 10px;font-family: 'Open Sans', sans-serif;}
 
 .student_greeting{margin-left: 50px; font: 'Open Sans', sans-serif;}
 
-.student_pg_buttons{margin-left: 50px;}
+.student_pg_buttons, .admin_pg_buttons{margin-left: 50px;}
 
 .view_all_sessions_header, .all_sessions_tbl_div, .bottom_buttons{margin-left: 50px;}
 
@@ -25,5 +25,7 @@ body {padding: 80px 10px 0px 10px;font-family: 'Open Sans', sans-serif;}
 .view_my_grades_header, .my_grades_tbl_div, .bottom_buttons{margin-left: 50px;}
 
 .all_sessions_tbl_div, .my_classes_tbl_div, .my_grades_tbl_div {margin-right: 50px;}
+
+.logout_msg {margin-left:50px; font-family: 'Open Sans', sans-serif; font-size: 1.5em;}
 
 /*.form-inline{padding-left: 100px}*/
