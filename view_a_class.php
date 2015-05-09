@@ -30,7 +30,7 @@
         $query_one_class = 'SELECT s.Section_ID, s.Course_ID, c.Course_Title, p.Lname, s.Meeting_Date, s.Start_Time, s.End_Time, c.Course_Unit, s.Syllabus FROM SECTIONS as s, COURSE as c, PROFESSOR as p, ENROLL as e WHERE e.S_ID = '.$student_id.' and '.$sec_num.' = e.Section_ID and e.Section_ID = s.Section_ID and s.Course_ID = c.Course_ID and s.P_ID = p.P_ID';
         $result_aclass = $link->query($query_one_class) or die("ERROR:" . mysqli_error($link));                     
             if($result_aclass->num_rows === 0){
-                $_SESSION['message_aclass'] = "No records found, only one class should be displayed here.";
+                $_SESSION['message_aclass'] = "No records found. Please enter valid Section ID.";
                 header("Location: view_my_classes.php");
             }
         }
@@ -145,9 +145,10 @@
                 }
                 unset($_SESSION['message_hw']); // clear the value so that it doesn't display again
             ?>
-            <p>
-                <a href="list_files.php">See all files</a>
-            </p>
+            <br><br>
+            <h4>
+                <a href="list_files.php"><h4>Click Here To See All Files Submitted For This Class<h4></a>
+            </h4>
 
     </div><br><br>
 </main>
