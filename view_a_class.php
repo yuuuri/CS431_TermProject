@@ -1,11 +1,62 @@
 <?php
     session_start();
-    $student_id = $_SESSION['sess_var'];
+    include 'define_class.php';
+    $student_id = $_SESSION['id'];
+    
+    
+                function view_specific_class($link, $student_id, $sec_num) {
+                    
+                    $select = 'SELECT s.Section_ID, s.Course_ID, s.Meeting_Date, s.Start_Time, s.End_Time, c.Course_Unit, s.Syllabus ';
+                    $from = 'FROM COURSE as c, SECTIONS as s, ENROLL as e ';
+                    $where = 'WHERE e.S_ID = '.$student_id.' AND e.Section_ID = s.Section_ID AND s.Course_ID = c.Course_ID;';
+                    $query = $select.$from.$where;
+                    $result = $link->query($query) or die("ERROR: " . mysqli_error($link));
+                    if($result->num_rows === 0){
+                        echo "<p>No records found</p>";
+                        exit();
+                    }else{
+                        //echo 'variable check $sec_num = '.$sec_num;
+                        //echo 'variable check $student_id var = '.$student_id;
+                    $query_one_class = 'SELECT s.Section_ID, s.Course_ID, c.Course_Title, p.Lname, s.Meeting_Date, s.Start_Time, s.End_Time, c.Course_Unit, s.Syllabus FROM SECTIONS as s, COURSE as c, PROFESSOR as p, ENROLL as e WHERE e.S_ID = '.$student_id.' and '.$sec_num.' = e.Section_ID and e.Section_ID = s.Section_ID and s.Course_ID = c.Course_ID and s.P_ID = p.P_ID';
+                    $result_aclass = $link->query($query_one_class) or die("ERROR:" . mysqli_error($link));                     
+                        if($result_aclass->num_rows === 0){
+                            echo "<p>No records found, only one class should be displayed here</p>";
+                            exit();
+                        }else{
+                            //create another session variable
+                            $_SESSION['hw_sec_var'] = $sec_num;
+                            //echo $_SESSION['hw_sec_var'];
+                            while($row = mysqli_fetch_array($result_aclass)){
+                                    echo "<tr>";
+                                    echo "<td>" . $row['Section_ID'] . "</td>";
+                                    echo "<td>" . $row['Course_ID'] . "</td>";
+                                    echo "<td>" . $row['Course_Title'] . "</td>";
+                                    echo "<td>" . $row['Lname'] . "</td>";
+                                    echo "<td>" . $row['Meeting_Date'] . "</td>";
+                                    echo "<td>" . $row['Start_Time']."</td>";
+                                    echo "<td>" . $row['End_Time']."</td>";
+                                    echo "<td>" . $row['Course_Unit']."</td>";
+                                    echo "<td>" . $row['Syllabus']."</td>";
+                                    echo "</tr>";
+                            }//end of while
+                            //$result_aclass->$free();
+                            //$link->close();
+                            //echo 'what happened2?'; 
+                        } 
+                        
+                        
+                              
+                    }
+                }
+    
+    
+    
+    
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>View All Sessions</title>
+    <title>View Class</title>
     <meta name = "author" content="Yuri Van Steenburg" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
@@ -35,10 +86,6 @@
             <tbody> <!-- Reference: https://github.com/chrisdanan/431Hw4/blob/master/index.php -->
 
             <?php
-
-                 session_start();
-                 $student_id = $_SESSION['sess_var'];
-
                 //declare course(specific section) variable
                 $sec_num = $_POST['asec_num']; //asec_num is a section number picked up from view_my_classes
                 if(!$sec_num){
@@ -53,59 +100,9 @@
                 }else{ //echo 'course_id is '.$sec_num;
                     
                     //local variable to connect to database
-                    $user = 'root';
-                    $password = 'root';
-                    $db = 'TermProject';
-                    $host = '127.0.0.1';
-                    $port = 8889;
-                    $socket = 'localhost:/Applications/MAMP/tmp/mysql/mysql.sock';
-
-                    $link = mysqli_init();
-                    $success = mysqli_real_connect($link, $host, $user, $password, $db, $port, $socket);
-                    if (mysqli_connect_errno()) {
-                        echo "<p>Error: Could not connect to data base.  Try again<p>\n";
-                        exit;
-                    } 
-                    $select = 'SELECT s.Section_ID, s.Course_ID, s.Meeting_Date, s.Start_Time, s.End_Time, c.Course_Unit, s.Syllabus ';
-                    $from = 'FROM COURSE as c, SECTIONS as s, ENROLL as e ';
-                    $where = 'WHERE e.S_ID = '.$_SESSION['sess_var'].' AND e.Section_ID = s.Section_ID AND s.Course_ID = c.Course_ID;';
-                    $query = $select.$from.$where;
-
-                    $result = $link->query($query) or die("ERROR: " . mysqli_error($link));
-                    if($result->num_rows === 0){
-                        echo "<p>No records found</p>";
-                        exit();
-                    }else{
-                        //echo 'variable check $sec_num = '.$sec_num;
-                        //echo 'variable check $student_id var = '.$student_id;
-
-                    $query_one_class = 'SELECT s.Section_ID, s.Course_ID, c.Course_Title, p.Lname, s.Meeting_Date, s.Start_Time, s.End_Time, c.Course_Unit, s.Syllabus FROM SECTIONS as s, COURSE as c, PROFESSOR as p, ENROLL as e WHERE e.S_ID = '.$student_id.' and '.$sec_num.' = e.Section_ID and e.Section_ID = s.Section_ID and s.Course_ID = c.Course_ID and s.P_ID = p.P_ID';
-                    $result_aclass = $link->query($query_one_class) or die("ERROR:" . mysqli_error($link));                     
-                        if($result_aclass->num_rows === 0){
-                            echo "<p>No records found, only one class should be displayed here</p>";
-                            exit();
-                        }else{
-                            //create another session variable
-                            $_SESSION['hw_sec_var'] = $sec_num;
-                            //echo $_SESSION['hw_sec_var'];
-                            while($row = mysqli_fetch_array($result_aclass)){
-                                    echo "<tr>";
-                                    echo "<td>" . $row['Section_ID'] . "</td>";
-                                    echo "<td>" . $row['Course_ID'] . "</td>";
-                                    echo "<td>" . $row['Course_Title'] . "</td>";
-                                    echo "<td>" . $row['Lname'] . "</td>";
-                                    echo "<td>" . $row['Meeting_Date'] . "</td>";
-                                    echo "<td>" . $row['Start_Time']."</td>";
-                                    echo "<td>" . $row['End_Time']."</td>";
-                                    echo "<td>" . $row['Course_Unit']."</td>";
-                                    echo "<td>" . $row['Syllabus']."</td>";
-                                    echo "</tr>";
-                            }//end of while
-                            //$result_aclass->$free();
-                            //$link->close();
-                            //echo 'what happened2?'; 
-                        }       
-                    }
+                    $db = connectDB();
+                    view_specific_class($db, $student_id, $sec_num);
+                    
                 //$result->$free();
                 //$link->close();    
                }
@@ -117,28 +114,24 @@
 <br><br>
     <div class = "bottom_buttons" >          
         <h3>Submit My Homework</h3>
-
-    <form action="add_file.php" method="post" enctype="multipart/form-data">
-        <input type="file" name="uploaded_file"><br>
-        <input type="submit" class="btn btn-primary" value="Upload file">
-    </form>
-    <?php
-    if(isset($_SESSION['message_hw']))
-    {
-        echo '<font color = "red"><i>'.$_SESSION['message_hw'].'</i></font>';
-    }
-    unset($_SESSION['message_hw']); // clear the value so that it doesn't display again
-    ?>
-    <br><br>
-    <h4>
-        <a href="list_files.php"><h4>See all files</h4></a>
-    </h4>
-
-
-
-
-
-            
+            <form action = "upload_hw.php" method = "post" enctype="multipart/form-data" />
+                <div>
+                    <input type = "hidden" name = "MAX_FILE_SIZE" value = "1000000" />
+                    <label for ="userfile"><h4>Upload a file: </h4></label>
+                    <input type = "file" name = "uploaded_file" class = "inputFile" /><br>
+                    <input class ="btn btn-success" type = "submit" value="Upload file" />
+                </div>
+            </form>
+            <?php
+                if(isset($_SESSION['message_hw']))
+                {
+                    echo '<font color = "red"><i>'.$_SESSION['message_hw'].'</i></font>';
+                }
+                unset($_SESSION['message_hw']); // clear the value so that it doesn't display again
+            ?>
+            <p>
+                <a href="list_files.php">See all files</a>
+            </p>
 
     </div><br><br>
 </main>
@@ -155,8 +148,3 @@
 
 </body>
 </html>
-
-
-
-
-
