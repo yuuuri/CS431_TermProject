@@ -22,33 +22,20 @@
         <table class = "table table-striped">
             <thead>
               <tr><th>File Name</th>
-                  <th>File Size</th>
+                  <th>File Size (byte) </th>
                   <th>Submission Date/Time</th>
-                  <th>&nbsp;</th>
+                  <th>Link</th>
               </tr>
             </thead>
             <tbody>
             <?php
 
                 session_start();
-                $student_id = $_SESSION['sess_var'];
+                include 'define_class.php';
+                $student_id = $_SESSION['id'];
                 $sec_num = $_SESSION['hw_sec_var'];    
 
-                // Connect to the database
-                //local variable to connect to database
-                $user = 'root';
-                $password = 'root';
-                $db = 'TermProject';
-                $host = '127.0.0.1';
-                $port = 8889;
-                $socket = 'localhost:/Applications/MAMP/tmp/mysql/mysql.sock';
-
-                $link = mysqli_init();
-                $success = mysqli_real_connect($link, $host, $user, $password, $db, $port, $socket);
-                if (mysqli_connect_errno()) {
-                    echo "<p>Error: Could not connect to data base.  Try again<p>\n";
-                    exit;
-                } 
+                $link = connectDB();
  
                 // Query for a list of all existing files
                 //$sql = 'SELECT `hw_id`, `name`, `mime`, `size`, `created` FROM `FILE`';
@@ -73,7 +60,7 @@
                                 <td>{$row['name']}</td>
                                 <td>{$row['size']}</td>
                                 <td>{$row['created']}</td>
-                                <td><a href='get_file.php?id={$row['id']}'>Download</a></td>
+                                <td><a href='get_file.php?id={$row['hw_id']}'>Download</a></td>
                             </tr>";
                         }
  
@@ -109,8 +96,3 @@
     </footer>
 </body>
 </html>
-
-
-
-
-
