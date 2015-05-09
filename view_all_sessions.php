@@ -1,7 +1,10 @@
 <?php
     session_start();
-    $student_id = $_SESSION['sess_var'];
+    include 'define_class.php';
+    $student_id = $_SESSION['id'];
+
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,66 +37,8 @@
             <tbody> <!-- Reference: https://github.com/chrisdanan/431Hw4/blob/master/index.php -->
                 <?php
 
-                 session_start();
-                    //declare CWID variable
-                    $student_id = $_POST['s_id'];
-
-
-                    class view_all_sections {
-                        function connect() {
-                            //local variable to connect to database
-                            $user = 'root';
-                            $password = 'root';
-                            $db = 'TermProject';
-                            $host = '127.0.0.1';
-                            $port = 8889;
-                            $socket = 'localhost:/Applications/MAMP/tmp/mysql/mysql.sock';
-
-                            $link = mysqli_init();
-                            $success = mysqli_real_connect($link, $host, $user, $password, $db, $port, $socket);
-                            if (mysqli_connect_errno()) {
-                                echo "<p>Error: Could not connect to data base.  Try again<p>\n";
-                                exit;
-                            }
-                            return $link;
-                        }
-                        function display_all_sections($link_db){
-
-                            $select = 'SELECT s.Section_ID, s.Course_ID, p.Fname, p.Lname, s.Meeting_Date, s.Start_Time, s.End_Time, c.Course_Unit ';
-                            $from = 'FROM SECTIONS as s, PROFESSOR as p, COURSE as c ';
-                            $where = 'WHERE s.P_ID = p.P_ID and s.Course_ID = c.Course_ID;';
-
-                            $query = $select.$from.$where;
-
-                            $result = $link_db->query($query) or die("ERROR: " . mysqli_error($link_db));
-                            if($result->num_rows === 0){
-                                echo "<p>No records found</p>";
-                                //exit();
-                            }else {
-                                    while($row = mysqli_fetch_array($result)){
-                                        echo "<tr>";
-                                        echo "<td>" . $row['Section_ID'] . "</td>";
-                                        echo "<td>" . $row['Course_ID'] . "</td>";
-                                        echo "<td>" . $row['Fname'] . "</td>";
-                                        echo "<td>" . $row['Lname'] . "</td>";
-                                        echo "<td>" . $row['Meeting_Date'] . "</td>";
-                                        echo "<td>" . $row['Start_Time']."</td>";
-                                        echo "<td>" . $row['End_Time']."</td>";
-                                        echo "<td>" . $row['Course_Unit']."</td>";
-                                        echo "</tr>";
-                                    }//end of while
-
-                                $result->free();
-                                $link_db->close();
-
-                            }//end of else
-                        }//end of function display_all_sections
-                    }//end of class view_all_sections
-  
-                    $v = new view_all_sections();
-                    $link_db = $v->connect();
-                    $v->display_all_sections($link_db);
-
+                    $db = connectDB();
+                    display_all_sections($db);
 
                 ?>
             </tbody>
@@ -103,7 +48,7 @@
                     <form class="form-inline" form action="view_course_details.php" method="POST">
                         <div class="form-group">
                             <label for="exampleInputName2">Type Course-ID to View Details of a Course: </label>
-                            <input type="text" class="form-control" id="exampleInputName2" placeholder="" name="course_id" maxlength = "9">
+                            <input type="text" class="form-control" id="exampleInputName2" placeholder="Enter a Course ID" name="course_id" maxlength = "9">
                             <button type="submit" class="btn btn-info">Submit</button>
                         </div>
                     </form>
@@ -118,7 +63,7 @@
                     <form class="form-inline" form action="enroll.php" method="POST">
                         <div class="form-group">
                             <label for="exampleInputName2">Enter Session-ID to enroll: </label>
-                            <input type="text" class="form-control" id="exampleInputName2" placeholder="" name="session_id" maxlength = "5">
+                            <input type="text" class="form-control" id="exampleInputName2" placeholder="Enter Section ID" name="session_id" maxlength = "5">
                             <button type="submit" class="btn btn-warning">Enroll</button>
                         </div>
                     </form>
