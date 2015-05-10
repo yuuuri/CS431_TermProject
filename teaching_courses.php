@@ -1,7 +1,8 @@
 <?php
 
 session_start();
-$facultyId = $_POST['p_id'];
+//$facultyId = $_POST['p_id'];
+//$_SESSION['section_id'] = $_POST['section_id'];
 include 'define_class.php';
 $p_id = $_SESSION['id'];
 $account = 'PROFESSOR';
@@ -80,18 +81,25 @@ $records = mysqli_query($con, $sql);
                             <button type="submit" class="btn btn-info">Submit</button>
                         </div>
                 </form>
+
+    <h3>Upload File: </h3>
+                <form class="form-inline" form action="faculty_file_upload.html" method="POST">
+                        <div class="form-group">
+                            <label for="exampleInputName2">Section ID: </label>
+                            <input type="text" class="form-control" id="exampleInputName2" placeholder="" name="section_id" maxlength = "9">
+                            <button type="submit" class="btn btn-info">Submit</button>
+                        </div>
+                </form>
 	
 </main>
 <footer>
             <br>
             <br>
-			<form action = "faculty_page.php" method = "post">
-				<input name = "BackButton" type="submit" values="Back">
-			</form>
+            <?php
+            // Echo a link back to the main page
+            echo '<p>Click <a href="index.php">here</a> to go back</p>';
+            ?>
 
 </footer>
 </body>
 </html>
-
-
-
