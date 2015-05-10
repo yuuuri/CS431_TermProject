@@ -14,8 +14,8 @@ $hw_grade = $_SESSION['hw_grade'];
 $term_grade = $_SESSION['term_grade'];
 $course_grade = $_SESSION['course_grade'];
 //==============================================
-$p_id = $_SESSION['id'];
-$account = 'PROFESSOR';
+//$p_id = $_SESSION['id'];
+// $account = 'PROFESSOR';
 
 //making db connection
 $con = mysqli_connect('localhost', 'root', '', 'TermProject');
@@ -42,7 +42,7 @@ $con = mysqli_connect('localhost', 'root', '', 'TermProject');
         </div>
     </header>
 <main>
-    <div class = "Course_Schedule_tbl_div">
+<!--     <div class = "Course_Schedule_tbl_div">
         <table class = "table table-striped">
             <thead>
                 <tr><th>Section</th>
@@ -52,30 +52,24 @@ $con = mysqli_connect('localhost', 'root', '', 'TermProject');
                     <th>Course Grade</th>
                 </tr>
             </thead>
-            <tbody> 
+            <tbody>  -->
 			   <?php
 
-                    if(!$section_id || !$s_id)
-                    {
-                        echo 'You have not entered all the required field. Try Again. <br />';
-                        exit;
-                    }
-                    if(!get_magic_quotes_gpc())
-                    {
-                        $section_id = addslashes($section_id);
-                        $s_id = addslashes($s_id);
-                        $hw_grade = addslashes($hw_grade);
-                        $term_grade = addslashes($term_grade);
-                        $course_grade = addslashes($course_grade);
-                    }
+                    // if(!$section_id || !$s_id)
+                    // {
+                    //     echo 'You have not entered all the required field. Try Again. <br />';
+                    //     exit;
+                    // }
 
                     //Time for that query
-                    $sql = "insert into CLASS_GRADES values
-                            ('".$section_id."', '".$s_id."', '".$hw_grade."', '".$term_grade."', '".$course_grade."')";
+                    $sql = "INSERT into CLASS_GRADES values
+                            ('$section_id', '$s_id', '', '','$hw_grade', '$term_grade', '$course_grade')";
 
-                    $records = $con->query($sql);
-                    if ($records)
-                        echo $con->affected_rows.' scores updated.';
+                    $records = mysqli_query($con,$sql);
+                    if (!$records)
+                        echo mysqli_error($con);
+                    else
+                        echo "Successfully Inserted";
 
                     // while($tScores = mysqli_fetch_assoc($records)){
                     //     echo "<tr>";
@@ -88,32 +82,26 @@ $con = mysqli_connect('localhost', 'root', '', 'TermProject');
                     //     echo "</tr>";
                     // }
 
-                    $con->close();
+                    // $con->close();
 
                 ?>
-            </tbody>
+   <!--          </tbody>
         </table>
     </div>
 	
     <br /> 
     <br />
+ -->
 
-    <h3>Select Class: </h3>
-                <form class="form-inline" form action="course_details.php" method="POST">
-                        <div class="form-group">
-                            <label for="exampleInputName2">Course ID: </label>
-                            <input type="text" class="form-control" id="exampleInputName2" placeholder="" name="course_id" maxlength = "9">
-                            <button type="submit" class="btn btn-info">Submit</button>
-                        </div>
-                </form>
 	
 </main>
 <footer>
             <br>
             <br>
-			<form action = "faculty_page.php" method = "post">
-				<input name = "BackButton" type="submit" values="Back">
-			</form>
+            <?php
+            // Echo a link back to the main page
+            echo '<p>Click <a href="faculty_view_scores.php">here</a> to go back</p>';
+            ?>
 
 </footer>
 </body>

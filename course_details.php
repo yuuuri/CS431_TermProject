@@ -74,9 +74,10 @@ $records = mysqli_query($con, $sql);
 <footer>
             <br>
             <br>
-			<form action = "teaching_courses.php" method = "post">
-				<input name = "BackButton" type="submit" values="Back">
-			</form>
+            <?php
+            // Echo a link back to the main page
+            echo '<p>Click <a href="teaching_courses.php">here</a> to go back</p>';
+            ?>
 
 </footer>
 </body>
