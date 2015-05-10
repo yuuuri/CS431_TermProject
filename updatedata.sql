@@ -44,7 +44,8 @@ add foreign key (Course_ID) references COURSE (Course_ID);
 
 
 create table ENROLL
-(	S_ID int unsigned not null,
+(	 
+	S_ID int unsigned not null,
 	Section_ID int unsigned not null
 );
 
@@ -94,7 +95,11 @@ insert into PROFESSOR values
 insert into STUDENT values
 (	300000001, 'Charles', 'Xavier'),
 (	300000002, 'Hope', 'Summers'),
-(	300000003, 'Bobby', 'Schmurda');
+(	300000003, 'Bobby', 'Schmurda'),
+(	300000004, 'Barbara', 'Sorasit'),
+(	300000005, 'Civic', 'Honda'),
+(	300000006, 'Collora', 'Toyota'),
+(	300000007, 'Lexus', 'Andrade');
 
 insert into COURSE values
 (	'CPSC-431', 'Database & Applications', 3,'Class specifies PHP and MySQL.  Pre-reqs include CPSC 131'),
@@ -123,8 +128,16 @@ insert into ENROLL values
 (	300000002, 00001),
 (	300000001, 00003),
 (	300000001, 00005),
-(	300000003, 00001);
+(	300000003, 00001),
+(	300000004, 00007),
+(	300000005, 00007),
+(	300000006, 00007),
+(	300000007, 00007);
 
 insert into CLASS_GRADES (Section_ID, S_ID, HW_Grade, Term_Grade) values
 (	00001, 300000001, 100, 88),
-(	00001, 300000002, 92, 80);
+(	00001, 300000002, 92, 80),
+(	00007, 300000004, 54, 98),
+(	00007, 300000005, 98, 50),
+(	00007, 300000006, 64, 88),
+(	00007, 300000007, 78, 84);
