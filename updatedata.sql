@@ -68,6 +68,24 @@ CREATE TABLE `FILE` (
 alter table FILE
 add foreign key (S_ID) references ENROLL (S_ID),
 add foreign key (Section_ID) references ENROLL (Section_ID);
+
+
+CREATE TABLE `PROF_SYLLABUS` (
+    `syllabus_id`     int unsigned not null auto_increment,
+    `P_ID`		int unsigned not null,
+    `Section_ID`	int unsigned not null,
+    `name`      varchar(255) not null default 'Untitled.txt',
+    `mime`      varchar(50) not null default 'text/plain',
+    `size`      bigint Unsigned not null default 0,
+    `data`      mediumblob not null,
+    `created`   datetime not null,
+    primary key (`syllabus_id`)
+);
+
+alter table PROF_SYLLABUS
+add foreign key (P_ID) references PROFESSOR (P_ID),
+add foreign key (Section_ID) references SECTIONS (Section_ID);
+
  
 create table CLASS_GRADES
 (	Section_ID int unsigned not null,
