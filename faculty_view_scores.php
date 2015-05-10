@@ -2,7 +2,7 @@
 session_start();
 
 include 'define_class.php';
-$_SESSION['section_id'] = $_POST['section_id'];
+//$_SESSION['section_id'] = $_POST['section_id'];
 $section_id = $_SESSION['section_id'];
 $p_id = $_SESSION['id'];
 $account = 'PROFESSOR';
@@ -107,9 +107,10 @@ $records = mysqli_query($con, $sql);
 <footer>
             <br>
             <br>
-			<form action = "faculty_page.php" method = "post">
-				<input name = "BackButton" type="submit" values="Back">
-			</form>
+            <?php
+			// Echo a link back to the main page
+            echo '<p>Click <a href="teaching_courses.php">here</a> to go back</p>';
+            ?>
 
 </footer>
 </body>
