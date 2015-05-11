@@ -60,40 +60,24 @@
     <br>
     <div class = "coursesList">
         <form action = "teaching_courses.php" method = "post">
-            <input class = "btn btn-primary btn-lg" type = "submit" name = 'p_id' value = "View Courses"/>
+            <input class = "btn btn-primary btn-lg" type = "submit" name = 'p_id' value = "Proceed"/>
         </form>
     </div>
         <br>
         <br>
         <br>
-    <div class = "uploadMaterials">
-        <form action = "" method = "post">
-            <input class="btn btn-primary btn-lg" type = "submit" name = 'p_id' value = "Upload Files" />
-        </form>
-    </div>
-        <br>
-        <br>
-        <br>
-    <div class = "downloadFiles">
-        <form action = "" method = "post">
-            <input class="btn btn-primary btn-lg" type = "submit" name = 'p_id' value = "Download Files" />
-        </form>
-    </div>
-        <br>
-        <br>
-        <br>
-<!--     <div class = "enterScores">
-        <form action = "enter_scores.php" method = "post">
-            <input class="btn btn-primary btn-lg" type = "submit" name = 'section_id' value = "Enter Scores" />
-        </form>
-    </div> -->
 
 </main>
+<footer>
+            <br>
+            <br>
+            <?php
+            // Echo a link back to the main page
+            echo '<p>Click <a href="index.php">here</a> to go back</p>';
+            ?>
 
+</footer>
 </body>
 </html>
-
-       
-
 
        
