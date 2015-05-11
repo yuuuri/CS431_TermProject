@@ -2,7 +2,8 @@
 
 session_start();
 //$facultyId = $_POST['p_id'];
-//$_SESSION['section_id'] = $_POST['section_id'];
+$_SESSION['section_id'] = isset($_POST['section_id']) ? $_POST['section_id'] : "";
+$section_id = $_SESSION['section_id'];
 include 'define_class.php';
 $p_id = $_SESSION['id'];
 $account = 'PROFESSOR';
@@ -82,8 +83,8 @@ $records = mysqli_query($con, $sql);
                         </div>
                 </form>
 
-    <h3>Upload File: </h3>
-                <form class="form-inline" form action="faculty_file_upload.html" method="POST">
+    <h3>Upload/Download Files: </h3>
+                <form class="form-inline" form action="faculty_file_upload.php" method="POST">
                         <div class="form-group">
                             <label for="exampleInputName2">Section ID: </label>
                             <input type="text" class="form-control" id="exampleInputName2" placeholder="" name="section_id" maxlength = "9">
