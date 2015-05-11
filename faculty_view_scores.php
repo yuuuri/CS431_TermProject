@@ -2,11 +2,12 @@
 session_start();
 
 include 'define_class.php';
-//$_SESSION['section_id'] = $_POST['section_id'];
+$_SESSION['section_id'] = $_POST['section_id'];
 $section_id = $_SESSION['section_id'];
 $p_id = $_SESSION['id'];
 $account = 'PROFESSOR';
 
+//echo $section_id;
 //making db connection
 $con = mysqli_connect('localhost', 'root', '', 'TermProject');
 //Time for that query
