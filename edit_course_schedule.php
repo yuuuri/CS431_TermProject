@@ -17,7 +17,8 @@
 				$course_id = $_POST["edit_course"];
 				$_SESSION["course_id"] = $_POST["edit_course"];
 				$visit = false;
-			}	
+			}
+			$visit = false;	
 		}
 		
 	} else {
