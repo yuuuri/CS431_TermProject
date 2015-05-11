@@ -100,6 +100,24 @@
 		}
 	}
 
+	/****** check if section has a student enrolled to it ******/
+	function check_del_section ($section_id)
+	{
+		$db = connectDB();
+		$query = "SELECT * FROM ENROLL WHERE Section_ID = $section_id";
+		
+		$result = mysqli_query($db, $query);
+		$num = mysqli_num_rows($result);
+
+		if ($num > 0) {
+			mysqli_close($db);
+			return true;
+		} else {
+			mysqli_close($db);
+			return false;
+		}
+	}
+
 		
 	/**** Return User's First Name ******/
 	function getFname($CWID,$accounttype)
@@ -336,6 +354,7 @@
 		if (mysqli_query($db, $query)) {
 		} else {
 			echo "Error updating database - problem deleting section";
+			exit;
 		}
 		
 		mysqli_close($db);
