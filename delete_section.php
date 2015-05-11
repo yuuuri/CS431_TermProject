@@ -8,6 +8,7 @@
 	$section_id = $_POST["del_sec"];
 
 	$validsection = checkSection($section_id);
+	$can_del_section = check_del_section($section_id);
 
 	
 	if (!$section_id){
@@ -18,7 +19,12 @@
 		$_SESSION['message_del_sec'] = "Please enter a valid Section ID";
 		header("Location: view_all_sessions_admin.php");
 		exit;
-	} 
+	} elseif ($can_del_section == true) {
+		$_SESSION['message_del_sec'] = "Student enrolled in Section!  Cannot delete Section!";
+		header("Location: view_all_sessions_admin.php");
+		exit;
+	}	
+	
 	
 	
 ?>
@@ -82,7 +88,7 @@
             <br>
             <br>
 			<form action = "view_all_sessions_admin.php" method = "post">
-				<input name = "BackButton" type="submit" values="Back">
+				<input name = "BackButton" type="submit" value ="Back">
 			</form>
 
 </footer>
