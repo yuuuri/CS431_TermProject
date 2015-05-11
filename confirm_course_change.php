@@ -109,7 +109,7 @@
             <br>
             <br>
 			<form action = "view_course_schedule.php" method = "post">
-				<input name = "BackButton" type="submit" values="Back">
+				<input name = "BackButton" type="submit" value="Back">
 			</form>
 
 </footer>
